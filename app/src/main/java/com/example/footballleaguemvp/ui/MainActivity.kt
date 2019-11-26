@@ -1,7 +1,8 @@
-package com.example.footballleaguemvp
+package com.example.footballleaguemvp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.footballleaguemvp.R
 
 class MainActivity : AppCompatActivity() {
 
