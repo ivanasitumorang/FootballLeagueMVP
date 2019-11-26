@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toolbar_background"
+    android:orientation="vertical"
+    android:paddingStart="0dp"
+    android:paddingEnd="15dp">
+
+    <ImageButton
+        android:id="@+id/btnToolbarBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvToolbarTitle"
+        android:layout_alignBottom="@id/tvToolbarTitle"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:paddingStart="20dp"
+        android:src="@drawable/back_arrow"
+        android:visibility="gone"
+        android:contentDescription="@string/back_button" />
+
+    <TextView
+        android:id="@+id/tvToolbarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/btnToolbarBack"
+        android:fontFamily="@font/roboto_light"
+        android:paddingStart="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        tools:text="Toolbar Title" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvToolbarTitle"
+        android:layout_alignBottom="@id/tvToolbarTitle"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:closeIcon="@drawable/ic_close"
+        android:queryHint="@string/search_match"
+        android:searchIcon="@drawable/ic_search_white"
+        android:visibility="gone" />
+
+</RelativeLayout>
