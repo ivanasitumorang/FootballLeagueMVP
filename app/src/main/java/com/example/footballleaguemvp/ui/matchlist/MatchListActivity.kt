@@ -57,7 +57,7 @@ class MatchListActivity : AppCompatActivity(), MatchListContract.View {
     }
 
     override fun loadSelectedTab() {
-        val matchListPagerAdapter = MatchListPagerAdapter(supportFragmentManager)
+        val matchListPagerAdapter = MatchListPagerAdapter(supportFragmentManager, leagueId)
         pager.adapter = matchListPagerAdapter
         tabLayout.setupWithViewPager(pager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{

@@ -41,7 +41,6 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
 
     override fun populateData(leagueList: List<LocalLeague>) {
         mAdapter = LeagueListAdapter(
-            context = applicationContext,
             leagues = leagueList,
             clickListener = object : LeagueClickListener {
                 override fun onClickLeagueItem(leagueId: String, leagueName: String) {

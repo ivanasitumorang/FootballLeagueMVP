@@ -11,7 +11,7 @@ import com.example.footballleaguemvp.ui.matchschedule.MatchScheduleFragment
  * Android Engineer
  */
  
-class MatchListPagerAdapter (fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class MatchListPagerAdapter (fm: FragmentManager, private val leagueId: String) : FragmentStatePagerAdapter(fm) {
 
     companion object {
         const val TAG_TYPE_NEXT_MATCH = "next_match"
@@ -24,8 +24,8 @@ class MatchListPagerAdapter (fm: FragmentManager) : FragmentStatePagerAdapter(fm
     )
 
     override fun getItem(position: Int): Fragment {
-        return if (position == 0) MatchScheduleFragment.newInstance(TAG_TYPE_PREV_MATCH)
-        else MatchScheduleFragment.newInstance(TAG_TYPE_NEXT_MATCH)
+        return if (position == 0) MatchScheduleFragment.newInstance(TAG_TYPE_PREV_MATCH, leagueId)
+        else MatchScheduleFragment.newInstance(TAG_TYPE_NEXT_MATCH, leagueId)
     }
 
     override fun getCount() = 2

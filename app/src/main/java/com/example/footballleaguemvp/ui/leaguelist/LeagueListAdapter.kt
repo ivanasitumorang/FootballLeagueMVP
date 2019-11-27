@@ -1,6 +1,5 @@
 package com.example.footballleaguemvp.ui.leaguelist
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.item_league_list.view.*
  * Android Engineer
  */
  
-class LeagueListAdapter (private val context: Context, var leagues: List<LocalLeague>, private val clickListener: LeagueClickListener)
+class LeagueListAdapter (var leagues: List<LocalLeague>, private val clickListener: LeagueClickListener)
     : RecyclerView.Adapter<LeagueListAdapter.ViewHolder>() {
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +28,7 @@ class LeagueListAdapter (private val context: Context, var leagues: List<LocalLe
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_league_list, null))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_league_list, parent, false))
     }
 
     override fun getItemCount() = leagues.size
