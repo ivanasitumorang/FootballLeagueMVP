@@ -3,4 +3,5 @@
     <string name="back_button">Back Button</string>
     <string name="search_match">Search Match</string>
     <string name="content_description">Content Description</string>
+    <string name="see_match">Lihat Pertandingan</string>
 </resources>

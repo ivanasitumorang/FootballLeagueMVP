@@ -1,5 +1,6 @@
 package com.example.footballleaguemvp.network
 
+import com.example.footballleaguemvp.data.LeagueResponse
 import io.reactivex.Flowable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,7 +25,7 @@ private val retrofit = Retrofit.Builder()
 interface NetworkService {
     @GET("api/v1/json/1/lookupleague.php")
     fun getLeagueDetail(
-        @Query("id") idLeague: String)
+        @Query("id") idLeague: String): Flowable<LeagueResponse>
 
     @GET("api/v1/json/1/eventspastleague.php")
     fun getPrevMatchByLeagueId(

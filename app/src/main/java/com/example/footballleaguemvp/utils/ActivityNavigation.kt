@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import android.content.Intent
-import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity.Companion.TAG_LEAGUE_ID
-import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity.Companion.TAG_LEAGUE_NAME
+import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 
 /**
  * Created by ivanaazuka on 2019-11-26.
@@ -17,10 +16,19 @@ class ActivityNavigation constructor(private val activity: AppCompatActivity) {
     fun navigateToLeagueDetail(leagueId: String, leagueName: String){
         val leagueDetailPage = newIntent(activity, LeagueDetailActivity::class.java)
         leagueDetailPage.apply {
-            putExtra(TAG_LEAGUE_ID, leagueId)
-            putExtra(TAG_LEAGUE_NAME, leagueName)
+            putExtra(LeagueDetailActivity.TAG_LEAGUE_ID, leagueId)
+            putExtra(LeagueDetailActivity.TAG_LEAGUE_NAME, leagueName)
         }
         activity.startActivity(leagueDetailPage)
+    }
+
+    fun navigateToMatchList(leagueId: String, leagueName: String){
+        val matchListPage = newIntent(activity, MatchListActivity::class.java)
+        matchListPage.apply {
+            putExtra(MatchListActivity.TAG_LEAGUE_ID, leagueId)
+            putExtra(MatchListActivity.TAG_LEAGUE_NAME, leagueName)
+        }
+        activity.startActivity(matchListPage)
     }
 
     private fun<T> newIntent(context: Context, cls: Class<T>): Intent {

@@ -2,7 +2,6 @@ package com.example.footballleaguemvp.ui.leaguelist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.LocalLeague
 import com.example.footballleaguemvp.utils.ActivityNavigation
@@ -46,7 +45,6 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
             leagues = leagueList,
             clickListener = object : LeagueClickListener {
                 override fun onClickLeagueItem(leagueId: String, leagueName: String) {
-                    Toast.makeText(applicationContext, leagueName, Toast.LENGTH_SHORT).show()
                     mActivityNavigation.navigateToLeagueDetail(leagueId, leagueName)
                 }
 
