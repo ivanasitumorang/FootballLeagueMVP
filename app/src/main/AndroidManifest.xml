@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.matchlist.MatchListActivity"></activity>
+        <activity android:name=".ui.searchmatch.SearchActivity"></activity>
+        <activity android:name=".ui.matchlist.MatchListActivity" />
         <activity android:name=".ui.leaguedetail.LeagueDetailActivity" />
         <activity android:name=".ui.leaguelist.LeagueListActivity">
             <intent-filter>

@@ -36,17 +36,17 @@
         android:textSize="18sp"
         tools:text="Toolbar Title" />
 
-    <SearchView
+    <ImageButton
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvToolbarTitle"
         android:layout_alignBottom="@id/tvToolbarTitle"
         android:layout_alignParentEnd="true"
+        android:background="@color/transparent"
         android:gravity="end"
-        android:closeIcon="@drawable/ic_close"
-        android:queryHint="@string/search_match"
-        android:searchIcon="@drawable/ic_search_white"
+        android:contentDescription="@string/content_description"
+        android:src="@drawable/ic_search_white"
         android:visibility="gone" />
 
 </RelativeLayout>

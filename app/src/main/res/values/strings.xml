@@ -4,4 +4,7 @@
     <string name="search_match">Search Match</string>
     <string name="content_description">Content Description</string>
     <string name="see_match">Lihat Pertandingan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
