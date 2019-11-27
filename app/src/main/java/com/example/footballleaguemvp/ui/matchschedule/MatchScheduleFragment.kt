@@ -1,4 +1,4 @@
-package com.example.footballleaguemvp.ui.matchlist
+package com.example.footballleaguemvp.ui.matchschedule
 
 
 import android.os.Bundle
@@ -11,7 +11,8 @@ import com.example.footballleaguemvp.R
 import kotlinx.android.synthetic.main.fragment_match_list.*
 
 
-class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
+class MatchScheduleFragment : Fragment(),
+    MatchScheduleContract.View {
 
     private var tabtype  = "belum"
 
@@ -22,7 +23,8 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
             val bundle = Bundle()
             bundle.putString(TAG_MATCH_TYPE, type)
 
-            val fragment = MatchScheduleFragment()
+            val fragment =
+                MatchScheduleFragment()
             fragment.arguments = bundle
             return fragment
         }

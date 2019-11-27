@@ -1,4 +1,4 @@
-package com.example.footballleaguemvp.ui.matchlist
+package com.example.footballleaguemvp.ui.matchschedule
 
 
 /**
