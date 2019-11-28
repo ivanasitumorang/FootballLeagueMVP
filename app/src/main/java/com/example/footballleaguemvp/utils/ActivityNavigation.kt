@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import android.content.Intent
+import com.example.footballleaguemvp.ui.matchdetail.MatchDetailActivity
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
 
@@ -30,6 +31,15 @@ class ActivityNavigation constructor(private val activity: AppCompatActivity) {
             putExtra(MatchListActivity.TAG_LEAGUE_NAME, leagueName)
         }
         activity.startActivity(matchListPage)
+    }
+
+    fun navigateToMatchDetail(matchId: String, matchName: String){
+        val matchDetailPage = newIntent(activity, MatchDetailActivity::class.java)
+        matchDetailPage.apply {
+            putExtra(MatchDetailActivity.TAG_MATCH_ID, matchId)
+            putExtra(MatchDetailActivity.TAG_MATCH_NAME, matchName)
+        }
+        activity.startActivity(matchDetailPage)
     }
 
     fun navigateToSearchPage(){

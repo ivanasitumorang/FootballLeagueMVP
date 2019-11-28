@@ -12,6 +12,7 @@ class MatchScheduleContract {
     interface View {
         fun setupUi()
         fun setupPresenter()
+        fun setupNavigation()
         fun showLoadingIndicator()
         fun hideLoadingIndicator()
         fun initializeData()

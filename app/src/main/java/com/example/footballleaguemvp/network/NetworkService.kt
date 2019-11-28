@@ -38,7 +38,7 @@ interface NetworkService {
 
     @GET("api/v1/json/1/lookupevent.php")
     fun getMatchDetail(
-        @Query("id") idEvent: String)
+        @Query("id") idEvent: String) : Flowable<MatchResponse>
 }
 
 object NetworkServiceApi {

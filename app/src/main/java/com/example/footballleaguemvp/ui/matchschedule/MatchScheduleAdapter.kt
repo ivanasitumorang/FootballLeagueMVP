@@ -23,9 +23,9 @@ class MatchListAdapter (var matches: List<Match>, private val clickListener: Mat
                 tvMatchName.text = item.strEvent
                 tvDate.text = item.dateEvent
                 tvTime.text = item.strTime
-                tvHomeScore.text = item.intHomeScore
+                tvHomeScore.text = item.intHomeScore ?: "-"
                 tvHomeTeam.text = item.strHomeTeam
-                tvAwayScore.text = item.intAwayScore
+                tvAwayScore.text = item.intAwayScore ?: "-"
                 tvAwayTeam.text = item.strAwayTeam
                 itemMatch.setOnClickListener { clickListener.onClickLeagueItem(item.idEvent, item.strEvent) }
             }

@@ -10,6 +10,8 @@ import android.widget.Toast
 
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
+import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.fragment_match_list.*
 
 
@@ -18,6 +20,7 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     private var tabtype  = ""
     private var leagueId  = ""
     private lateinit var mPresenter: MatchSchedulePresenter
+    private lateinit var mActivityNavigation: ActivityNavigation
 
     companion object {
         const val TAG_MATCH_TYPE = "match_type"
@@ -47,6 +50,10 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
         return inflater.inflate(R.layout.fragment_match_list, container, false)
     }
 
+    override fun setupNavigation() {
+        mActivityNavigation = ActivityNavigation(activity as MatchListActivity)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUi()
@@ -55,6 +62,7 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
 
     override fun setupUi() {
         setupPresenter()
+        setupNavigation()
     }
 
     override fun setupPresenter() {
@@ -76,7 +84,7 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     override fun populateData(matches: List<Match>) {
         val matchListAdapter = MatchListAdapter(matches, object : MatchClickListener {
             override fun onClickLeagueItem(matchId: String, matchName: String) {
-                Toast.makeText(context!!, matchName, Toast.LENGTH_SHORT).show()
+                mActivityNavigation.navigateToMatchDetail(matchId, matchName)
             }
         })
 
