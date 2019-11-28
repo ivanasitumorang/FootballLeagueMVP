@@ -2,6 +2,7 @@ package com.example.footballleaguemvp.ui.leaguelist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.LocalLeague
 import com.example.footballleaguemvp.utils.ActivityNavigation
@@ -18,6 +19,7 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUi()
+        setupClickListener()
         initializeData()
     }
 
@@ -31,8 +33,15 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
         setupNavigation()
     }
 
+    override fun setupClickListener() {
+        searchView.setOnClickListener {
+            mActivityNavigation.navigateToSearchPage()
+        }
+    }
+
     override fun setupToolbar() {
         tvToolbarTitle.text = getString(R.string.app_name)
+        searchView.visibility = View.VISIBLE
     }
 
     override fun setupNavigation() {

@@ -49,6 +49,7 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = leagueName
         btnToolbarBack.setOnClickListener { onBackPressed() }
+        searchView.visibility = View.VISIBLE
     }
 
     override fun setupNavigation() {
@@ -84,6 +85,10 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
     }
 
     override fun setupClickListener() {
+        searchView.setOnClickListener {
+            mActivityNavigation.navigateToSearchPage()
+        }
+
         btnSeeMatch.setOnClickListener {
             mActivityNavigation.navigateToMatchList(leagueId, leagueName)
         }

@@ -17,6 +17,8 @@ class MatchDetailContract {
         fun displayData(match: Match)
         fun showLoadingIndicator()
         fun hideLoadingIndicator()
+        fun setupClickListener()
+        fun setupNavigation()
     }
     interface Logic {
         fun getMatchDetail(matchId: String)

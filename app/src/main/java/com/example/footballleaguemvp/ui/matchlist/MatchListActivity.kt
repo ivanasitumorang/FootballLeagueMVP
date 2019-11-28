@@ -42,7 +42,6 @@ class MatchListActivity : AppCompatActivity(), MatchListContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = leagueName
         btnToolbarBack.setOnClickListener { onBackPressed() }
-
         searchView.visibility = View.VISIBLE
     }
 

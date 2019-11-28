@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
 
@@ -16,6 +17,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     }
 
     private lateinit var mPresenter: MatchDetailPresenter
+    private lateinit var mActivityNavigation: ActivityNavigation
     private var matchId = ""
     private var matchName = ""
 
@@ -28,12 +30,14 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
             matchName = bundle.getString(TAG_MATCH_NAME, "")
         }
         setupUi()
+        setupClickListener()
         initializeData()
     }
 
     override fun setupUi() {
         setupToolbar(matchName)
         setupPresenter()
+        setupNavigation()
     }
 
     override fun setupPresenter() {
@@ -44,6 +48,17 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = matchName
         btnToolbarBack.setOnClickListener { onBackPressed() }
+        searchView.visibility = View.VISIBLE
+    }
+
+    override fun setupNavigation() {
+        mActivityNavigation = ActivityNavigation(this)
+    }
+
+    override fun setupClickListener() {
+        searchView.setOnClickListener {
+            mActivityNavigation.navigateToSearchPage()
+        }
     }
 
     override fun initializeData() {

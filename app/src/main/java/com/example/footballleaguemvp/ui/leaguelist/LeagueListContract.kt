@@ -15,6 +15,7 @@ class LeagueListContract {
         fun setupToolbar()
         fun setupNavigation()
         fun initializeData()
+        fun setupClickListener()
         fun populateData(leagueList: List<LocalLeague>)
     }
 
