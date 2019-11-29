@@ -11,6 +11,7 @@ import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar_search.*
 import kotlinx.android.synthetic.main.toolbar_search.btnToolbarBack
+
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     private lateinit var mActivityNavigation: ActivityNavigation
@@ -21,11 +22,6 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         setContentView(R.layout.activity_search)
         setupUi()
         setupSearchClickListener()
-    }
-
-    override fun onBackPressed() {
-        mActivityNavigation.navigateToLeagueList()
-        super.onBackPressed()
     }
 
     override fun setupUi() {

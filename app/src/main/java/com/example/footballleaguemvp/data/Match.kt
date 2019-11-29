@@ -16,7 +16,8 @@ data class Match(
     val dateEvent: String,
     val strTime: String,
     val idHomeTeam: String,
-    val idAwayTeam: String
+    val idAwayTeam: String,
+    val strSport: String
 )
 
 data class MatchResponse(

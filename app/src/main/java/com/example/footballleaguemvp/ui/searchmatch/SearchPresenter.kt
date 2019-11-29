@@ -22,8 +22,11 @@ class SearchPresenter constructor(private val view: SearchContract.View) : Searc
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
-                {
-                    view.populateData(it.event)
+                { response ->
+                    val resultOnlySoccer = response.event.filter { match ->
+                        match.strSport.equals("Soccer", true)
+                    }
+                    view.populateData(resultOnlySoccer)
                     view.hideLoadingIndicator()
                 },
                 {
