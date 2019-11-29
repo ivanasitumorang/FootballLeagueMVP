@@ -62,7 +62,8 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
 
     override fun populateData(league: League) {
         Picasso.get()
-            .load(league.strBanner)
+            .load(league.strLogo)
+            .placeholder(resources.getDrawable(R.drawable.loading_animation))
             .into(ivLeagueBanner)
         tvLeagueName.text = league.strLeague
         tvLeagueDetail.text = league.strDescriptionEN

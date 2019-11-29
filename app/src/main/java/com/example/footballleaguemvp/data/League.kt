@@ -11,7 +11,8 @@ data class League(
     val strLeague: String,
     val strDescriptionEN: String,
     val strBanner: String,
-    val strBadge: String
+    val strBadge: String,
+    val strLogo: String
 )
 
 data class LeagueResponse(

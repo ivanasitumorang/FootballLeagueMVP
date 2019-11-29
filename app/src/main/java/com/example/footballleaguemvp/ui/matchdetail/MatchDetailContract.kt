@@ -1,6 +1,7 @@
 package com.example.footballleaguemvp.ui.matchdetail
 
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.data.Team
 
 
 /**
@@ -14,7 +15,9 @@ class MatchDetailContract {
         fun setupPresenter()
         fun setupToolbar(title: String)
         fun initializeData()
-        fun displayData(match: Match)
+        fun displayMatchDetail(match: Match, teamHomeId: String, teamAwayId: String)
+        fun displayHomeTeamDetail(team: Team)
+        fun displayAwayTeamDetail(team: Team)
         fun showLoadingIndicator()
         fun hideLoadingIndicator()
         fun setupClickListener()
@@ -22,5 +25,6 @@ class MatchDetailContract {
     }
     interface Logic {
         fun getMatchDetail(matchId: String)
+        fun getTeamDetail(teamHomeId: String, teamAwayId: String)
     }
 }

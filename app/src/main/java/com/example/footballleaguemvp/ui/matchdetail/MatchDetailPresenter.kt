@@ -2,7 +2,7 @@ package com.example.footballleaguemvp.ui.matchdetail
 
 import com.example.footballleaguemvp.network.NetworkServiceApi
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 
@@ -13,23 +13,53 @@ import io.reactivex.schedulers.Schedulers
  
 class MatchDetailPresenter constructor(private val view: MatchDetailContract.View) : MatchDetailContract.Logic {
 
-    private lateinit var mDisposable: Disposable
+    private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMatchDetail(matchId: String) {
         view.showLoadingIndicator()
-        mDisposable = NetworkServiceApi.retrofitService
-            .getMatchDetail(matchId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                {
-                    view.displayData(it.events[0])
-                    view.hideLoadingIndicator()
-                },
-                {
-                    view.hideLoadingIndicator()
-                }
-            )
+        mCompositeDisposable.add(
+            NetworkServiceApi.retrofitService
+                .getMatchDetail(matchId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {
+                        val result = it.events[0]
+                        view.displayMatchDetail(result, result.idHomeTeam, result.idAwayTeam)
+                        view.hideLoadingIndicator()
+                    },
+                    {
+                        view.hideLoadingIndicator()
+                    }
+                )
+        )
+    }
+
+    override fun getTeamDetail(teamHomeId: String, teamAwayId: String) {
+        mCompositeDisposable.addAll(
+            NetworkServiceApi.retrofitService
+                .getTeamDetail(teamHomeId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {
+                        view.displayHomeTeamDetail(it.teams[0])
+                    },
+                    {
+                    }
+                ),
+            NetworkServiceApi.retrofitService
+                .getTeamDetail(teamAwayId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    {
+                        view.displayAwayTeamDetail(it.teams[0])
+                    },
+                    {
+                    }
+                )
+        )
     }
 
 }

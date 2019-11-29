@@ -14,7 +14,9 @@ data class Match(
     val intHomeScore: String? = null,
     val intAwayScore: String? = null,
     val dateEvent: String,
-    val strTime: String
+    val strTime: String,
+    val idHomeTeam: String,
+    val idAwayTeam: String
 )
 
 data class MatchResponse(

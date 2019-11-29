@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.data.Team
 import com.example.footballleaguemvp.utils.ActivityNavigation
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
 
@@ -48,7 +50,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = matchName
         btnToolbarBack.setOnClickListener { onBackPressed() }
-        searchView.visibility = View.VISIBLE
     }
 
     override fun setupNavigation() {
@@ -56,16 +57,14 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     }
 
     override fun setupClickListener() {
-        searchView.setOnClickListener {
-            mActivityNavigation.navigateToSearchPage()
-        }
     }
 
     override fun initializeData() {
         mPresenter.getMatchDetail(matchId)
     }
 
-    override fun displayData(match: Match) {
+    override fun displayMatchDetail(match: Match, teamHomeId: String, teamAwayId: String) {
+        mPresenter.getTeamDetail(teamHomeId, teamAwayId)
         tvDate.text = match.dateEvent
         tvTime.text = match.strTime
         tvHomeScore.text = match.intHomeScore ?: "-"
@@ -74,6 +73,13 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         tvAwayTeam.text = match.strAwayTeam
     }
 
+    override fun displayHomeTeamDetail(team: Team) {
+        Picasso.get().load(team.strTeamLogo).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivHomeLogo)
+    }
+
+    override fun displayAwayTeamDetail(team: Team) {
+        Picasso.get().load(team.strTeamLogo).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivAwayLogo)
+    }
     override fun showLoadingIndicator() {
 
     }

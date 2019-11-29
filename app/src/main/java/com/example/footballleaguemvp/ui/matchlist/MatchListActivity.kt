@@ -42,7 +42,6 @@ class MatchListActivity : AppCompatActivity(), MatchListContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = leagueName
         btnToolbarBack.setOnClickListener { onBackPressed() }
-        searchView.visibility = View.VISIBLE
     }
 
     override fun setupNavigation() {
@@ -50,9 +49,6 @@ class MatchListActivity : AppCompatActivity(), MatchListContract.View {
     }
 
     override fun setClickListener() {
-        searchView.setOnClickListener {
-            mActivityNavigation.navigateToSearchPage()
-        }
     }
 
     override fun loadSelectedTab() {
