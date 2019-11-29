@@ -2,14 +2,15 @@ package com.example.footballleaguemvp.ui.searchmatch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.ui.matchschedule.MatchClickListener
+import com.example.footballleaguemvp.ui.matchschedule.MatchListAdapter
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar_search.*
-
+import kotlinx.android.synthetic.main.toolbar_search.btnToolbarBack
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     private lateinit var mActivityNavigation: ActivityNavigation
@@ -23,8 +24,8 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         mActivityNavigation.navigateToLeagueList()
+        super.onBackPressed()
     }
 
     override fun setupUi() {
@@ -39,23 +40,19 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     override fun setupSearchClickListener() {
         with(searchView){
-            setOnCloseListener {
-                btnToolbarBack.visibility = View.VISIBLE
-                false
-            }
-
-            setOnSearchClickListener {
-                btnToolbarBack.visibility = View.INVISIBLE
-            }
-
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    mPresenter.getSearchedData(query ?: "")
+                    if (!query.isNullOrEmpty()){
+                        mPresenter.getSearchedData(query)
+                    }
+
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    mPresenter.getSearchedData(newText ?: "")
+                    if (!newText.isNullOrEmpty()){
+                        mPresenter.getSearchedData(newText)
+                    }
                     return true
                 }
 
@@ -80,6 +77,11 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun populateData(matches: List<Match>) {
-        tvTempData.text = matches[0].strEvent
+        val matchListAdapter = MatchListAdapter(matches, object : MatchClickListener {
+            override fun onClickLeagueItem(matchId: String, matchName: String) {
+                mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+            }
+        })
+        rvMatchList.adapter = matchListAdapter
     }
 }
