@@ -1,5 +1,6 @@
 package com.example.footballleaguemvp.ui.matchdetail
 
+import android.database.sqlite.SQLiteConstraintException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,9 +8,15 @@ import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.data.Team
 import com.example.footballleaguemvp.utils.ActivityNavigation
+import com.example.footballleaguemvp.utils.databasehelper.database
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.toast
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
@@ -20,6 +27,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
     private lateinit var mPresenter: MatchDetailPresenter
     private lateinit var mActivityNavigation: ActivityNavigation
+    private lateinit var match: Match
+    private var isFavoriteMatch = false
     private var matchId = ""
     private var matchName = ""
 
@@ -40,6 +49,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         setupToolbar(matchName)
         setupPresenter()
         setupNavigation()
+        toggleFavoriteIcon()
     }
 
     override fun setupPresenter() {
@@ -49,6 +59,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     override fun setupToolbar(title: String) {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = matchName
+        btnFavorite.visibility = View.VISIBLE
         btnToolbarBack.setOnClickListener { onBackPressed() }
     }
 
@@ -57,6 +68,13 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     }
 
     override fun setupClickListener() {
+        btnFavorite.setOnClickListener {
+            if (isFavoriteMatch){
+                removeMatchToFavorite(match)
+            } else {
+                addMatchToFavorite(match)
+            }
+        }
     }
 
     override fun initializeData() {
@@ -64,6 +82,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     }
 
     override fun displayMatchDetail(match: Match, teamHomeId: String, teamAwayId: String) {
+        this.match = match
         mPresenter.getTeamDetail(teamHomeId, teamAwayId)
         tvDate.text = match.dateEvent
         tvTime.text = match.strTime
@@ -86,5 +105,57 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
     override fun hideLoadingIndicator() {
 
+    }
+
+    override fun addMatchToFavorite(match: Match) {
+        try {
+            database.use {
+                insert(Match.TABLE_FAVORITE_MATCH,
+                    Match.EVENT_ID to match.idEvent,
+                    Match.EVENT_NAME to match.strEvent,
+                    Match.EVENT_HOME_TEAM to match.strHomeTeam,
+                    Match.EVENT_AWAY_TEAM to match.strAwayTeam,
+                    Match.EVENT_HOME_SCORE to match.intHomeScore,
+                    Match.EVENT_AWAY_SCORE to match.intAwayScore,
+                    Match.EVENT_DATE to match.dateEvent,
+                    Match.EVENT_TIME to match.strTime,
+                    Match.EVENT_ID_HOME_TEAM to match.idHomeTeam,
+                    Match.EVENT_ID_AWAY_TEAM to match.idAwayTeam,
+                    Match.EVENT_SPORT_NAME to match.strSport)
+            }
+            toast("berhasil disimpan: ${match.strEvent}").show()
+            toggleFavoriteIcon()
+        } catch (e: SQLiteConstraintException){
+            toast("error $e").show()
+        }
+    }
+
+    override fun removeMatchToFavorite(match: Match) {
+        try {
+            database.use {
+                delete(Match.TABLE_FAVORITE_MATCH, "(${Match.EVENT_ID} = {idEvent})",
+                    "idEvent" to matchId)
+            }
+            toast("berhasil dihapus: ${match.strEvent}").show()
+            toggleFavoriteIcon()
+        } catch (e: SQLiteConstraintException){
+            toast("error $e").show()
+        }
+    }
+
+    override fun toggleFavoriteIcon() {
+        database.use {
+            val result = select(Match.TABLE_FAVORITE_MATCH)
+                .whereArgs("(${Match.EVENT_ID} = {idEvent})",
+                    "idEvent" to matchId)
+            val favorite = result.parseList(classParser<Match>())
+            isFavoriteMatch = favorite.isNotEmpty()
+        }
+
+        if (isFavoriteMatch){
+            btnFavorite.setImageResource(R.drawable.ic_favorite_full)
+        } else {
+            btnFavorite.setImageResource(R.drawable.ic_favorite_border)
+        }
     }
 }

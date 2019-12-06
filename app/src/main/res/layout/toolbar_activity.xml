@@ -18,6 +18,7 @@
         android:layout_gravity="center"
         android:background="@color/transparent"
         android:paddingStart="20dp"
+        android:paddingEnd="0dp"
         android:src="@drawable/back_arrow"
         android:visibility="gone"
         android:contentDescription="@string/back_button" />
@@ -30,6 +31,7 @@
         android:layout_toEndOf="@id/btnToolbarBack"
         android:fontFamily="@font/roboto_light"
         android:paddingStart="20dp"
+        android:paddingEnd="0dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="@color/colorWhite"
@@ -48,5 +50,16 @@
         android:contentDescription="@string/content_description"
         android:src="@drawable/ic_search_white"
         android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/content_description"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_favorite_border"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -22,6 +22,9 @@ class MatchDetailContract {
         fun hideLoadingIndicator()
         fun setupClickListener()
         fun setupNavigation()
+        fun addMatchToFavorite(match: Match)
+        fun removeMatchToFavorite(match: Match)
+        fun toggleFavoriteIcon()
     }
     interface Logic {
         fun getMatchDetail(matchId: String)
