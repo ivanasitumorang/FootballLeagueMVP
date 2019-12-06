@@ -18,8 +18,6 @@ class MatchDetailContract {
         fun displayMatchDetail(match: Match, teamHomeId: String, teamAwayId: String)
         fun displayHomeTeamDetail(team: Team)
         fun displayAwayTeamDetail(team: Team)
-        fun showLoadingIndicator()
-        fun hideLoadingIndicator()
         fun setupClickListener()
         fun setupNavigation()
         fun addMatchToFavorite(match: Match)

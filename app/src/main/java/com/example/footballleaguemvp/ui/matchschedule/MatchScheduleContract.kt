@@ -13,8 +13,6 @@ class MatchScheduleContract {
         fun setupUi()
         fun setupPresenter()
         fun setupNavigation()
-        fun showLoadingIndicator()
-        fun hideLoadingIndicator()
         fun initializeData()
         fun populateData(matches: List<Match>)
     }

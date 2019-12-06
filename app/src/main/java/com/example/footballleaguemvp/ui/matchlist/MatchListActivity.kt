@@ -49,6 +49,9 @@ class MatchListActivity : AppCompatActivity(), MatchListContract.View {
     }
 
     override fun setClickListener() {
+        btnFavoriteList.setOnClickListener {
+            mActivityNavigation.navigateToFavoriteMatchList()
+        }
     }
 
     override fun loadSelectedTab() {

@@ -33,6 +33,9 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
     }
 
     override fun setupClickListener() {
+        btnFavoriteList.setOnClickListener {
+            mActivityNavigation.navigateToFavoriteMatchList()
+        }
     }
 
     override fun setupToolbar() {

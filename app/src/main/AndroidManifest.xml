@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.matchdetail.MatchDetailActivity"/>
-        <activity android:name=".ui.searchmatch.SearchActivity"/>
+        <activity android:name=".ui.favoritematchlist.FavoriteMatchListActivity"></activity>
+        <activity android:name=".ui.matchdetail.MatchDetailActivity" />
+        <activity android:name=".ui.searchmatch.SearchActivity" />
         <activity android:name=".ui.matchlist.MatchListActivity" />
         <activity android:name=".ui.leaguedetail.LeagueDetailActivity" />
         <activity android:name=".ui.leaguelist.LeagueListActivity">

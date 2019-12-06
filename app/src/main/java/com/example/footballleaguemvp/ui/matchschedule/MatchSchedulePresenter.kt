@@ -17,7 +17,6 @@ class MatchSchedulePresenter constructor(private val view: MatchScheduleContract
     private lateinit var mDisposable: Disposable
 
     override fun getMatchList(type: String, leagueId: String) {
-        view.showLoadingIndicator()
         if (type.equals(MatchListPagerAdapter.TAG_TYPE_PREV_MATCH, true)) {
             mDisposable = NetworkServiceApi.retrofitService
                 .getPrevMatchByLeagueId(leagueId)
@@ -26,10 +25,8 @@ class MatchSchedulePresenter constructor(private val view: MatchScheduleContract
                 .subscribe(
                     {
                         view.populateData(it.events)
-                        view.hideLoadingIndicator()
                     },
                     {
-                        view.hideLoadingIndicator()
                     })
         } else {
             mDisposable = NetworkServiceApi.retrofitService
@@ -39,10 +36,8 @@ class MatchSchedulePresenter constructor(private val view: MatchScheduleContract
                 .subscribe(
                     {
                         view.populateData(it.events)
-                        view.hideLoadingIndicator()
                     },
                     {
-                        view.hideLoadingIndicator()
                     })
         }
 

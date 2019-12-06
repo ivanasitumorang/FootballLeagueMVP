@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
-import com.example.footballleaguemvp.ui.matchschedule.MatchClickListener
-import com.example.footballleaguemvp.ui.matchschedule.MatchListAdapter
+import com.example.footballleaguemvp.utils.adapter.MatchClickListener
+import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar_search.*
@@ -73,11 +73,15 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun populateData(matches: List<Match>) {
-        val matchListAdapter = MatchListAdapter(matches, object : MatchClickListener {
-            override fun onClickLeagueItem(matchId: String, matchName: String) {
-                mActivityNavigation.navigateToMatchDetail(matchId, matchName)
-            }
-        })
+        val matchListAdapter =
+            MatchListAdapter(
+                matches,
+                object :
+                    MatchClickListener {
+                    override fun onClickLeagueItem(matchId: String, matchName: String) {
+                        mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+                    }
+                })
         rvMatchList.adapter = matchListAdapter
     }
 }

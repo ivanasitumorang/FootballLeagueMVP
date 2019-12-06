@@ -1,4 +1,4 @@
-package com.example.footballleaguemvp.ui.matchschedule
+package com.example.footballleaguemvp.utils.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +33,9 @@ class MatchListAdapter (var matches: List<Match>, private val clickListener: Mat
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_match_list, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_match_list, parent, false)
+        )
     }
 
     override fun getItemCount() = matches.size

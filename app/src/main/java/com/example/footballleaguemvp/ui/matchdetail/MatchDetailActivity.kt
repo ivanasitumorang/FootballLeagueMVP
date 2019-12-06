@@ -60,7 +60,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = matchName
         btnFavorite.visibility = View.VISIBLE
-        btnToolbarBack.setOnClickListener { onBackPressed() }
     }
 
     override fun setupNavigation() {
@@ -74,6 +73,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
             } else {
                 addMatchToFavorite(match)
             }
+        }
+
+        btnToolbarBack.setOnClickListener { onBackPressed() }
+
+        btnFavoriteList.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -99,13 +104,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     override fun displayAwayTeamDetail(team: Team) {
         Picasso.get().load(team.strTeamLogo).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivAwayLogo)
     }
-    override fun showLoadingIndicator() {
-
-    }
-
-    override fun hideLoadingIndicator() {
-
-    }
 
     override fun addMatchToFavorite(match: Match) {
         try {
@@ -123,10 +121,10 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
                     Match.EVENT_ID_AWAY_TEAM to match.idAwayTeam,
                     Match.EVENT_SPORT_NAME to match.strSport)
             }
-            toast("berhasil disimpan: ${match.strEvent}").show()
+            toast("${match.strEvent} has been added to favorite list").show()
             toggleFavoriteIcon()
         } catch (e: SQLiteConstraintException){
-            toast("error $e").show()
+            toast("Fail to add match to favorite list").show()
         }
     }
 
@@ -136,10 +134,10 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
                 delete(Match.TABLE_FAVORITE_MATCH, "(${Match.EVENT_ID} = {idEvent})",
                     "idEvent" to matchId)
             }
-            toast("berhasil dihapus: ${match.strEvent}").show()
+            toast("${match.strEvent} has been removed from favorite list").show()
             toggleFavoriteIcon()
         } catch (e: SQLiteConstraintException){
-            toast("error $e").show()
+            toast("Fail to remove match from favorite list").show()
         }
     }
 

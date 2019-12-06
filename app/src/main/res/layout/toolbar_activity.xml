@@ -44,22 +44,34 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/tvToolbarTitle"
         android:layout_alignBottom="@id/tvToolbarTitle"
-        android:layout_alignParentEnd="true"
         android:background="@color/transparent"
         android:gravity="end"
         android:contentDescription="@string/content_description"
         android:src="@drawable/ic_search_white"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:padding="8dp"
+        android:layout_toLeftOf="@id/btnFavoriteList"/>
 
     <ImageButton
         android:id="@+id/btnFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:contentDescription="@string/content_description"
         android:background="@color/transparent"
         android:src="@drawable/ic_favorite_border"
         android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/btnFavoriteList"
+        android:padding="8dp"
         android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/btnFavoriteList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:src="@drawable/ic_favorite_list"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="8dp"/>
 
 </RelativeLayout>

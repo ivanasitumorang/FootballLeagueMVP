@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import android.content.Intent
-import com.example.footballleaguemvp.ui.leaguelist.LeagueListActivity
+import com.example.footballleaguemvp.ui.favoritematchlist.FavoriteMatchListActivity
 import com.example.footballleaguemvp.ui.matchdetail.MatchDetailActivity
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
@@ -15,11 +15,6 @@ import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
  */
  
 class ActivityNavigation constructor(private val activity: AppCompatActivity) {
-
-    fun navigateToLeagueList(){
-        val leagueListPage = newIntent(activity, LeagueListActivity::class.java)
-        activity.startActivity(leagueListPage)
-    }
 
     fun navigateToLeagueDetail(leagueId: String, leagueName: String){
         val leagueDetailPage = newIntent(activity, LeagueDetailActivity::class.java)
@@ -37,6 +32,11 @@ class ActivityNavigation constructor(private val activity: AppCompatActivity) {
             putExtra(MatchListActivity.TAG_LEAGUE_NAME, leagueName)
         }
         activity.startActivity(matchListPage)
+    }
+
+    fun navigateToFavoriteMatchList(){
+        val favoriteMatchListPage = newIntent(activity, FavoriteMatchListActivity::class.java)
+        activity.startActivity(favoriteMatchListPage)
     }
 
     fun navigateToMatchDetail(matchId: String, matchName: String){

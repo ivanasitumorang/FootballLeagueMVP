@@ -93,5 +93,9 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
         btnSeeMatch.setOnClickListener {
             mActivityNavigation.navigateToMatchList(leagueId, leagueName)
         }
+
+        btnFavoriteList.setOnClickListener {
+            mActivityNavigation.navigateToFavoriteMatchList()
+        }
     }
 }

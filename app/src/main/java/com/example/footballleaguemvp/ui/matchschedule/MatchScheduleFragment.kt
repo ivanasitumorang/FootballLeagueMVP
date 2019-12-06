@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.utils.ActivityNavigation
+import com.example.footballleaguemvp.utils.adapter.MatchClickListener
+import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
 import kotlinx.android.synthetic.main.fragment_match_list.*
 
 
@@ -69,24 +70,20 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
         mPresenter = MatchSchedulePresenter(this)
     }
 
-    override fun showLoadingIndicator() {
-
-    }
-
-    override fun hideLoadingIndicator() {
-
-    }
-
     override fun initializeData() {
         mPresenter.getMatchList(tabtype, leagueId)
     }
 
     override fun populateData(matches: List<Match>) {
-        val matchListAdapter = MatchListAdapter(matches, object : MatchClickListener {
-            override fun onClickLeagueItem(matchId: String, matchName: String) {
-                mActivityNavigation.navigateToMatchDetail(matchId, matchName)
-            }
-        })
+        val matchListAdapter =
+            MatchListAdapter(
+                matches,
+                object :
+                    MatchClickListener {
+                    override fun onClickLeagueItem(matchId: String, matchName: String) {
+                        mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+                    }
+                })
 
         rvMatchList.adapter = matchListAdapter
     }

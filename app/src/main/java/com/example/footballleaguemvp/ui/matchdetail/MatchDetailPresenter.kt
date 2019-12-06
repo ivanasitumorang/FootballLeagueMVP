@@ -16,7 +16,6 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
     private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMatchDetail(matchId: String) {
-        view.showLoadingIndicator()
         mCompositeDisposable.add(
             NetworkServiceApi.retrofitService
                 .getMatchDetail(matchId)
@@ -26,10 +25,8 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
                     {
                         val result = it.events[0]
                         view.displayMatchDetail(result, result.idHomeTeam, result.idAwayTeam)
-                        view.hideLoadingIndicator()
                     },
                     {
-                        view.hideLoadingIndicator()
                     }
                 )
         )
