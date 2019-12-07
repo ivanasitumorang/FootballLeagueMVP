@@ -2,6 +2,7 @@ package com.example.footballleaguemvp.ui.searchmatch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
@@ -57,11 +58,11 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun showLoadingIndicator() {
-
+        ivLoadingIndicator.visibility = View.VISIBLE
     }
 
     override fun hideLoadingIndicator() {
-
+        ivLoadingIndicator.visibility = View.GONE
     }
 
     override fun setPresenter() {
@@ -73,15 +74,24 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun populateData(matches: List<Match>) {
-        val matchListAdapter =
-            MatchListAdapter(
-                matches,
-                object :
-                    MatchClickListener {
-                    override fun onClickLeagueItem(matchId: String, matchName: String) {
-                        mActivityNavigation.navigateToMatchDetail(matchId, matchName)
-                    }
-                })
-        rvMatchList.adapter = matchListAdapter
+        if (matches.isNullOrEmpty()){
+            showNoData()
+        } else {
+            val matchListAdapter =
+                MatchListAdapter(
+                    matches,
+                    object :
+                        MatchClickListener {
+                        override fun onClickLeagueItem(matchId: String, matchName: String) {
+                            mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+                        }
+                    })
+            rvMatchList.adapter = matchListAdapter
+        }
+    }
+
+    override fun showNoData() {
+        layoutNoData.visibility = View.VISIBLE
+        rvMatchList.visibility = View.GONE
     }
 }

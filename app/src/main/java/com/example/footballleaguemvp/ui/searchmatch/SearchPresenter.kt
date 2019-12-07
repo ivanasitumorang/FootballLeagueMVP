@@ -31,6 +31,7 @@ class SearchPresenter constructor(private val view: SearchContract.View) : Searc
                 },
                 {
                     view.hideLoadingIndicator()
+                    view.showNoData()
                 }
             )
     }

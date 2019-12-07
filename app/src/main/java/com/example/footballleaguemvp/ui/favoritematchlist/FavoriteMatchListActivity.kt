@@ -58,16 +58,21 @@ class FavoriteMatchListActivity : AppCompatActivity(), FavoriteMatchListContract
     }
 
     override fun populateData(matches: List<Match>) {
-        val matchListAdapter =
-            MatchListAdapter(
-                matches,
-                object :
-                    MatchClickListener {
-                    override fun onClickLeagueItem(matchId: String, matchName: String) {
-                        activityNavigation.navigateToMatchDetail(matchId, matchName)
-                    }
-                })
+        if (matches.isNullOrEmpty()){
+            layoutNoData.visibility = View.VISIBLE
+            rvFavoriteMatchList.visibility = View.GONE
+        } else {
+            val matchListAdapter =
+                MatchListAdapter(
+                    matches,
+                    object :
+                        MatchClickListener {
+                        override fun onClickLeagueItem(matchId: String, matchName: String) {
+                            activityNavigation.navigateToMatchDetail(matchId, matchName)
+                        }
+                    })
 
-        rvFavoriteMatchList.adapter = matchListAdapter
+            rvFavoriteMatchList.adapter = matchListAdapter
+        }
     }
 }

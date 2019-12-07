@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteConstraintException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.RelativeLayout
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.data.Team
@@ -59,7 +60,13 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     override fun setupToolbar(title: String) {
         btnToolbarBack.visibility = View.VISIBLE
         tvToolbarTitle.text = matchName
+        btnFavoriteList.visibility = View.GONE
         btnFavorite.visibility = View.VISIBLE
+        val params = btnFavorite.layoutParams as RelativeLayout.LayoutParams
+        params.addRule(RelativeLayout.ALIGN_PARENT_END)
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+
+        btnFavoriteList.layoutParams = params
     }
 
     override fun setupNavigation() {
@@ -68,17 +75,19 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
     override fun setupClickListener() {
         btnFavorite.setOnClickListener {
-            if (isFavoriteMatch){
-                removeMatchToFavorite(match)
-            } else {
-                addMatchToFavorite(match)
+            if (::match.isInitialized){
+                if (isFavoriteMatch){
+                    removeMatchToFavorite(match)
+                } else {
+                    addMatchToFavorite(match)
+                }
             }
         }
 
         btnToolbarBack.setOnClickListener { onBackPressed() }
 
         btnFavoriteList.setOnClickListener {
-            onBackPressed()
+            mActivityNavigation.navigateToFavoriteMatchList()
         }
     }
 

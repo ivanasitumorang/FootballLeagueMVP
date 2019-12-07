@@ -18,6 +18,7 @@ class SearchContract {
         fun setupSearchClickListener()
         fun showLoadingIndicator()
         fun hideLoadingIndicator()
+        fun showNoData()
     }
 
     interface Logic {

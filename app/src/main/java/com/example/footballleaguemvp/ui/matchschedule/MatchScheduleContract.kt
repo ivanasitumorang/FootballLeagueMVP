@@ -15,6 +15,9 @@ class MatchScheduleContract {
         fun setupNavigation()
         fun initializeData()
         fun populateData(matches: List<Match>)
+        fun showLoadingIndicator()
+        fun hideLoadingIndicator()
+        fun showNoData()
     }
 
     interface Logic {

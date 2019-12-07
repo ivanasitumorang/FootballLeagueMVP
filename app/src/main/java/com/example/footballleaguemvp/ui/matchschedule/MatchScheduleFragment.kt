@@ -75,18 +75,33 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     }
 
     override fun populateData(matches: List<Match>) {
-        val matchListAdapter =
-            MatchListAdapter(
-                matches,
-                object :
-                    MatchClickListener {
-                    override fun onClickLeagueItem(matchId: String, matchName: String) {
-                        mActivityNavigation.navigateToMatchDetail(matchId, matchName)
-                    }
-                })
+        if (matches.isNullOrEmpty()){
+            showNoData()
+        } else {
+            val matchListAdapter =
+                MatchListAdapter(
+                    matches,
+                    object :
+                        MatchClickListener {
+                        override fun onClickLeagueItem(matchId: String, matchName: String) {
+                            mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+                        }
+                    })
 
-        rvMatchList.adapter = matchListAdapter
+            rvMatchList.adapter = matchListAdapter
+        }
     }
 
+    override fun showLoadingIndicator() {
+        ivLoadingIndicator.visibility = View.VISIBLE
+    }
 
+    override fun hideLoadingIndicator() {
+        ivLoadingIndicator.visibility = View.GONE
+    }
+
+    override fun showNoData() {
+        layoutNoData.visibility = View.VISIBLE
+        rvMatchList.visibility = View.GONE
+    }
 }
