@@ -105,7 +105,11 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         tvHomeTeam.text = match.strHomeTeam
         tvAwayTeam.text = match.strAwayTeam
 
-        tvHomeGoalMaker.text = String.format("home\ngoal\nmaker")
+        tvHomeGoalMaker.text = String.format("home\ngoal\nmaker\nhome\n" +
+                "goal\n" +
+                "maker\nhome\n" +
+                "goal\n" +
+                "maker")
     }
 
     override fun displayHomeTeamDetail(team: Team) {
