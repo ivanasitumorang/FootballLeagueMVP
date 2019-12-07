@@ -104,6 +104,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         tvAwayScore.text = match.intAwayScore ?: "-"
         tvHomeTeam.text = match.strHomeTeam
         tvAwayTeam.text = match.strAwayTeam
+
+        tvHomeGoalMaker.text = String.format("home\ngoal\nmaker")
     }
 
     override fun displayHomeTeamDetail(team: Team) {
@@ -128,7 +130,13 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
                     Match.EVENT_TIME to match.strTime,
                     Match.EVENT_ID_HOME_TEAM to match.idHomeTeam,
                     Match.EVENT_ID_AWAY_TEAM to match.idAwayTeam,
-                    Match.EVENT_SPORT_NAME to match.strSport)
+                    Match.EVENT_SPORT_NAME to match.strSport,
+                    Match.EVENT_HOME_GOAL to match.strHomeGoalDetails,
+                    Match.EVENT_HOME_REDCARD to match.strHomeRedCards,
+                    Match.EVENT_HOME_YELLOWCARD to match.strHomeYellowCards,
+                    Match.EVENT_AWAY_GOAL to match.strAwayGoalDetails,
+                    Match.EVENT_AWAY_REDCARD to match.strAwayRedCards,
+                    Match.EVENT_AWAY_YELLOWCARD to match.strAwayYellowCards)
             }
             toast("${match.strEvent} has been added to favorite list").show()
             toggleFavoriteIcon()
