@@ -105,18 +105,32 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         tvHomeTeam.text = match.strHomeTeam
         tvAwayTeam.text = match.strAwayTeam
 
-        tvHomeGoalMaker.text = String.format("home\ngoal\nmaker\nhome\n" +
-                "goal\n" +
-                "maker\nhome\n" +
-                "goal\n" +
-                "maker")
+        val homeGoal = if (match.strHomeGoalDetails.isNotEmpty()) match.strHomeGoalDetails.replace(";", "\n") else "-"
+        tvHomeGoalMaker.text = String.format(homeGoal)
+
+        val homeRedCard = if (match.strHomeRedCards.isNotEmpty()) match.strHomeRedCards.replace(";","\n") else "-"
+        tvHomeRedCards.text = String.format(homeRedCard)
+
+        val homeYellowCard = if (match.strHomeYellowCards.isNotEmpty()) match.strHomeYellowCards.replace(";","\n") else "-"
+        tvHomeYellowCards.text = String.format(homeYellowCard)
+
+        val awayGoal = if (match.strAwayGoalDetails.isNotEmpty()) match.strAwayGoalDetails.replace(";","\n") else "-"
+        tvAwayGoalMaker.text = String.format(awayGoal)
+
+        val awayRedCard = if (match.strAwayRedCards.isNotEmpty()) match.strAwayRedCards.replace(";","\n") else "-"
+        tvAwayRedCards.text = String.format(awayRedCard)
+
+        val awayYellowCard = if (match.strAwayYellowCards.isNotEmpty()) match.strAwayYellowCards.replace(";","\n") else "-"
+        tvAwayYellowCards.text = String.format(awayYellowCard)
     }
 
     override fun displayHomeTeamDetail(team: Team) {
+        @Suppress("DEPRECATION")
         Picasso.get().load(team.strTeamLogo).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivHomeLogo)
     }
 
     override fun displayAwayTeamDetail(team: Team) {
+        @Suppress("DEPRECATION")
         Picasso.get().load(team.strTeamLogo).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivAwayLogo)
     }
 
