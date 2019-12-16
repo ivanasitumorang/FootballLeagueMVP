@@ -8,7 +8,6 @@ import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailPresenter
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Flowable
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
