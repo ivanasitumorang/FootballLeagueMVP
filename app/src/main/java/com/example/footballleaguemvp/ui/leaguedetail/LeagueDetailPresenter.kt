@@ -30,7 +30,6 @@ class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.V
                 },
                 {
                     view.hideLoadingIndicator()
-                    view.disableButtonSeeMatch()
                 }
             )
     }
