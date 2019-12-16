@@ -56,3 +56,16 @@ object NetworkServiceApi {
         retrofit.create(NetworkService::class.java)
     }
 }
+
+class AppNetworkServiceProvider: NetworkServiceProvider {
+    override fun getNetworkService(): NetworkService = retrofit.create(NetworkService::class.java)
+
+}
+
+class TestRetrofitServiceProvider constructor(private val networkService: NetworkService): NetworkServiceProvider {
+    override fun getNetworkService(): NetworkService = networkService
+}
+
+interface NetworkServiceProvider {
+    fun getNetworkService(): NetworkService
+}

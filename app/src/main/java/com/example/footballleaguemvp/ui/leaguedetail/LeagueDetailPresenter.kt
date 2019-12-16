@@ -1,6 +1,6 @@
 package com.example.footballleaguemvp.ui.leaguedetail
 
-import com.example.footballleaguemvp.network.NetworkServiceApi
+import com.example.footballleaguemvp.network.NetworkServiceProvider
 import com.example.footballleaguemvp.network.SchedulerProvider
 import io.reactivex.disposables.Disposable
 
@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable
  * Android Engineer
  */
 
-class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.View, private val schedulerProvider: SchedulerProvider) :
+class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider) :
     LeagueDetailContract.Logic {
 
     private lateinit var mDisposable: Disposable
@@ -18,7 +18,7 @@ class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.V
     override fun setLeagueDetail(idLeague: String) {
         view.showLoadingIndicator()
         view.disableButtonSeeMatch()
-        mDisposable = NetworkServiceApi.retrofitService
+        mDisposable = networkServiceProvider.getNetworkService()
             .getLeagueDetail(idLeague)
             .observeOn(schedulerProvider.ui())
             .subscribeOn(schedulerProvider.io())

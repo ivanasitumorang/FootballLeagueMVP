@@ -8,7 +8,9 @@ import android.widget.RelativeLayout
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.data.Team
+import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
+import com.example.footballleaguemvp.network.NetworkServiceApi
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.databasehelper.database
 import com.squareup.picasso.Picasso
@@ -55,7 +57,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
     }
 
     override fun setupPresenter() {
-        mPresenter = MatchDetailPresenter(this, AppSchedulerProvider())
+        mPresenter = MatchDetailPresenter(this, AppSchedulerProvider(), AppNetworkServiceProvider())
     }
 
     override fun setupToolbar(title: String) {

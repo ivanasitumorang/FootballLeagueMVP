@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.utils.adapter.MatchClickListener
 import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
@@ -67,7 +68,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun setPresenter() {
-        mPresenter = SearchPresenter(this, AppSchedulerProvider())
+        mPresenter = SearchPresenter(this, AppSchedulerProvider(), AppNetworkServiceProvider())
     }
 
     override fun setupNavigation() {

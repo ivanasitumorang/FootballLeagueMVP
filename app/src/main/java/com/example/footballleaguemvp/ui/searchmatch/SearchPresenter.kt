@@ -1,6 +1,6 @@
 package com.example.footballleaguemvp.ui.searchmatch
 
-import com.example.footballleaguemvp.network.NetworkServiceApi
+import com.example.footballleaguemvp.network.NetworkServiceProvider
 import com.example.footballleaguemvp.network.SchedulerProvider
 import io.reactivex.disposables.Disposable
 
@@ -10,13 +10,13 @@ import io.reactivex.disposables.Disposable
  * Android Engineer
  */
  
-class SearchPresenter constructor(private val view: SearchContract.View, private val schedulerProvider: SchedulerProvider) : SearchContract.Logic {
+class SearchPresenter constructor(private val view: SearchContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider) : SearchContract.Logic {
 
     private lateinit var mDisposable: Disposable
 
     override fun getSearchedData(query: String) {
         view.showLoadingIndicator()
-        mDisposable = NetworkServiceApi.retrofitService
+        mDisposable = networkServiceProvider.getNetworkService()
             .searchMatchByQuery(query)
             .observeOn(schedulerProvider.ui())
             .subscribeOn(schedulerProvider.io())

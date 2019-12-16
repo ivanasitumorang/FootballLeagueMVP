@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.League
+import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.squareup.picasso.Picasso
@@ -36,7 +37,7 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
     }
 
     override fun setPresenter() {
-        mPresenter = LeagueDetailPresenter(this, AppSchedulerProvider())
+        mPresenter = LeagueDetailPresenter(this, AppSchedulerProvider(), AppNetworkServiceProvider())
     }
 
     override fun setUi() {

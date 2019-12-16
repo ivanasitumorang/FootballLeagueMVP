@@ -1,7 +1,6 @@
 package com.example.footballleaguemvp.ui.matchdetail
 
-import com.example.footballleaguemvp.network.NetworkServiceApi
-import com.example.footballleaguemvp.network.SchedulerProvider
+import com.example.footballleaguemvp.network.*
 import io.reactivex.disposables.CompositeDisposable
 
 
@@ -10,13 +9,13 @@ import io.reactivex.disposables.CompositeDisposable
  * Android Engineer
  */
  
-class MatchDetailPresenter constructor(private val view: MatchDetailContract.View, private val schedulerProvider: SchedulerProvider) : MatchDetailContract.Logic {
+class MatchDetailPresenter constructor(private val view: MatchDetailContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider) : MatchDetailContract.Logic {
 
     private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMatchDetail(matchId: String) {
         mCompositeDisposable.add(
-            NetworkServiceApi.retrofitService
+            networkServiceProvider.getNetworkService()
                 .getMatchDetail(matchId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -33,7 +32,7 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
 
     override fun getTeamDetail(teamHomeId: String, teamAwayId: String) {
         mCompositeDisposable.addAll(
-            NetworkServiceApi.retrofitService
+            networkServiceProvider.getNetworkService()
                 .getTeamDetail(teamHomeId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -44,7 +43,7 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
                     {
                     }
                 ),
-            NetworkServiceApi.retrofitService
+            networkServiceProvider.getNetworkService()
                 .getTeamDetail(teamAwayId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

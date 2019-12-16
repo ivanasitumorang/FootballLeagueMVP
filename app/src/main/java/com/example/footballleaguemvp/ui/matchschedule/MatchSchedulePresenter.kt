@@ -1,6 +1,6 @@
 package com.example.footballleaguemvp.ui.matchschedule
 
-import com.example.footballleaguemvp.network.NetworkServiceApi
+import com.example.footballleaguemvp.network.NetworkServiceProvider
 import com.example.footballleaguemvp.network.SchedulerProvider
 import com.example.footballleaguemvp.ui.matchlist.MatchListPagerAdapter
 import io.reactivex.disposables.Disposable
@@ -11,14 +11,14 @@ import io.reactivex.disposables.Disposable
  * Android Engineer
  */
  
-class MatchSchedulePresenter constructor(private val view: MatchScheduleContract.View, private val schedulerProvider: SchedulerProvider) : MatchScheduleContract.Logic {
+class MatchSchedulePresenter constructor(private val view: MatchScheduleContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider) : MatchScheduleContract.Logic {
 
     private lateinit var mDisposable: Disposable
 
     override fun getMatchList(type: String, leagueId: String) {
         if (type.equals(MatchListPagerAdapter.TAG_TYPE_PREV_MATCH, true)) {
             view.showLoadingIndicator()
-            mDisposable = NetworkServiceApi.retrofitService
+            mDisposable = networkServiceProvider.getNetworkService()
                 .getPrevMatchByLeagueId(leagueId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -33,7 +33,7 @@ class MatchSchedulePresenter constructor(private val view: MatchScheduleContract
                     })
         } else {
             view.showLoadingIndicator()
-            mDisposable = NetworkServiceApi.retrofitService
+            mDisposable = networkServiceProvider.getNetworkService()
                 .getNextMatchByLeagueId(leagueId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
