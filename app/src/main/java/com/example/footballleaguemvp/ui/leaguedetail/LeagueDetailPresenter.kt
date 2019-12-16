@@ -1,9 +1,8 @@
 package com.example.footballleaguemvp.ui.leaguedetail
 
+import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.network.NetworkServiceApi
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -15,14 +14,15 @@ class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.V
     LeagueDetailContract.Logic {
 
     private lateinit var mDisposable: Disposable
+    private val scheduler = AppSchedulerProvider()
 
     override fun setLeagueDetail(idLeague: String) {
         view.showLoadingIndicator()
         view.disableButtonSeeMatch()
         mDisposable = NetworkServiceApi.retrofitService
             .getLeagueDetail(idLeague)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(scheduler.ui())
+            .subscribeOn(scheduler.io())
             .subscribe(
                 {
                     view.populateData(it.leagues[0])

@@ -1,9 +1,8 @@
 package com.example.footballleaguemvp.ui.searchmatch
 
+import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.network.NetworkServiceApi
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -14,13 +13,14 @@ import io.reactivex.schedulers.Schedulers
 class SearchPresenter constructor(private val view: SearchContract.View) : SearchContract.Logic {
 
     private lateinit var mDisposable: Disposable
+    private val scheduler = AppSchedulerProvider()
 
     override fun getSearchedData(query: String) {
         view.showLoadingIndicator()
         mDisposable = NetworkServiceApi.retrofitService
             .searchMatchByQuery(query)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(scheduler.ui())
+            .subscribeOn(scheduler.io())
             .subscribe(
                 { response ->
                     val resultOnlySoccer = response.event.filter { match ->
