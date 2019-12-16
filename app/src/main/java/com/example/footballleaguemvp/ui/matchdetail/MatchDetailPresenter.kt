@@ -1,7 +1,7 @@
 package com.example.footballleaguemvp.ui.matchdetail
 
-import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.network.NetworkServiceApi
+import com.example.footballleaguemvp.network.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
 
@@ -10,17 +10,16 @@ import io.reactivex.disposables.CompositeDisposable
  * Android Engineer
  */
  
-class MatchDetailPresenter constructor(private val view: MatchDetailContract.View) : MatchDetailContract.Logic {
+class MatchDetailPresenter constructor(private val view: MatchDetailContract.View, private val schedulerProvider: SchedulerProvider) : MatchDetailContract.Logic {
 
     private var mCompositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val scheduler = AppSchedulerProvider()
 
     override fun getMatchDetail(matchId: String) {
         mCompositeDisposable.add(
             NetworkServiceApi.retrofitService
                 .getMatchDetail(matchId)
-                .observeOn(scheduler.ui())
-                .subscribeOn(scheduler.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
                 .subscribe(
                     {
                         val result = it.events[0]
@@ -36,8 +35,8 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
         mCompositeDisposable.addAll(
             NetworkServiceApi.retrofitService
                 .getTeamDetail(teamHomeId)
-                .observeOn(scheduler.ui())
-                .subscribeOn(scheduler.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
                 .subscribe(
                     {
                         view.displayHomeTeamDetail(it.teams[0])
@@ -47,8 +46,8 @@ class MatchDetailPresenter constructor(private val view: MatchDetailContract.Vie
                 ),
             NetworkServiceApi.retrofitService
                 .getTeamDetail(teamAwayId)
-                .observeOn(scheduler.ui())
-                .subscribeOn(scheduler.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
                 .subscribe(
                     {
                         view.displayAwayTeamDetail(it.teams[0])

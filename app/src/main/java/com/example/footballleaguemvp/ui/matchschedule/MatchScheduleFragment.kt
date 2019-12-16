@@ -9,6 +9,7 @@ import android.view.ViewGroup
 
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.adapter.MatchClickListener
@@ -67,7 +68,7 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     }
 
     override fun setupPresenter() {
-        mPresenter = MatchSchedulePresenter(this)
+        mPresenter = MatchSchedulePresenter(this, AppSchedulerProvider())
     }
 
     override fun initializeData() {
