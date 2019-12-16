@@ -1,7 +1,9 @@
 package com.example.footballleaguemvp
 
 import com.example.footballleaguemvp.data.League
+import com.example.footballleaguemvp.data.LeagueResponse
 import com.example.footballleaguemvp.network.NetworkService
+import com.example.footballleaguemvp.network.TestRetrofitServiceProvider
 import com.example.footballleaguemvp.network.TestSchedulerProvider
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailContract
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailPresenter
@@ -22,6 +24,7 @@ import org.junit.Test
 class LeagueDetailPresenterTest {
     private lateinit var leagueDetailPresenter: LeagueDetailPresenter
     private lateinit var testScheduler: TestScheduler
+    private lateinit var testServiceProvider: TestRetrofitServiceProvider
     private val leagueDetailView: LeagueDetailContract.View = mock()
     private val networkService: NetworkService = mock()
 
@@ -29,7 +32,8 @@ class LeagueDetailPresenterTest {
     fun setup(){
         testScheduler = TestScheduler()
         val testSchedulerProvider = TestSchedulerProvider(testScheduler)
-        leagueDetailPresenter = LeagueDetailPresenter(leagueDetailView, testSchedulerProvider)
+        testServiceProvider = TestRetrofitServiceProvider(networkService)
+        leagueDetailPresenter = LeagueDetailPresenter(leagueDetailView, testSchedulerProvider, testServiceProvider)
     }
 
     @Test
@@ -43,10 +47,10 @@ class LeagueDetailPresenterTest {
             strLeague = "English Premier League",
             strLogo = "https://www.thesportsdb.com/images/media/league/logo/4c377s1535214890.png"
         )
-        val leagueResponseMock = listOf(leagueDetailMock)
+        val leagueResponseMock = LeagueResponse(listOf(leagueDetailMock))
 
         doReturn(Flowable.just(leagueResponseMock))
-            .`when`(networkService)
+            .`when`(testServiceProvider.getNetworkService())
             .getLeagueDetail(leagueId)
 
         leagueDetailPresenter.setLeagueDetail(leagueId)
@@ -54,7 +58,7 @@ class LeagueDetailPresenterTest {
 
         verify(leagueDetailView).showLoadingIndicator()
         verify(leagueDetailView).disableButtonSeeMatch()
-        verify(leagueDetailView).populateData(leagueResponseMock[0])
+        verify(leagueDetailView).populateData(leagueResponseMock.leagues[0])
         verify(leagueDetailView).hideLoadingIndicator()
         verify(leagueDetailView).enableButtonSeeMatch()
     }
@@ -67,7 +71,7 @@ class LeagueDetailPresenterTest {
         val errorResponseMock = Flowable.error<Throwable>(errorMessageMock)
 
         doReturn(errorResponseMock)
-            .`when`(networkService)
+            .`when`(testServiceProvider.getNetworkService())
             .getLeagueDetail(leagueId)
 
         leagueDetailPresenter.setLeagueDetail(leagueId)
