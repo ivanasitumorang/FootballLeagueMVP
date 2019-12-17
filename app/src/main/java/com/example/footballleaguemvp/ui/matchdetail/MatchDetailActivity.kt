@@ -1,16 +1,15 @@
 package com.example.footballleaguemvp.ui.matchdetail
 
 import android.database.sqlite.SQLiteConstraintException
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.data.Team
 import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
-import com.example.footballleaguemvp.network.NetworkServiceApi
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.databasehelper.database
 import com.squareup.picasso.Picasso
