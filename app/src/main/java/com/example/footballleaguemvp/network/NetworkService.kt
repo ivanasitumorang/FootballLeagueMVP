@@ -51,12 +51,6 @@ interface NetworkService {
         @Query("e") query: String) : Flowable<SearchMatchResponse>
 }
 
-object NetworkServiceApi {
-    val retrofitService: NetworkService by lazy {
-        retrofit.create(NetworkService::class.java)
-    }
-}
-
 class AppNetworkServiceProvider: NetworkServiceProvider {
     override fun getNetworkService(): NetworkService = retrofit.create(NetworkService::class.java)
 
