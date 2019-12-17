@@ -2,6 +2,8 @@ package com.example.footballleaguemvp
 
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.data.MatchResponse
+import com.example.footballleaguemvp.data.Team
+import com.example.footballleaguemvp.data.TeamResponse
 import com.example.footballleaguemvp.network.NetworkService
 import com.example.footballleaguemvp.network.TestRetrofitServiceProvider
 import com.example.footballleaguemvp.network.TestSchedulerProvider
@@ -9,7 +11,8 @@ import com.example.footballleaguemvp.ui.matchdetail.MatchDetailContract
 import com.example.footballleaguemvp.ui.matchdetail.MatchDetailPresenter
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import io.mockk.mockk
+import io.mockk.verifyOrder
 import io.reactivex.Flowable
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
@@ -26,7 +29,7 @@ class MatchDetailPresenterTest {
     private lateinit var matchDetailPresenter: MatchDetailPresenter
     private lateinit var testScheduler: TestScheduler
     private lateinit var testServiceProvider: TestRetrofitServiceProvider
-    private val matchDetailView: MatchDetailContract.View = mock()
+    private val matchDetailView: MatchDetailContract.View = mockk(relaxed = true)
     private val networkService: NetworkService = mock()
 
     @Before
@@ -70,7 +73,9 @@ class MatchDetailPresenterTest {
         matchDetailPresenter.getMatchDetail(matchId)
         testScheduler.triggerActions()
 
-        verify(matchDetailView).displayMatchDetail(matchResponseMock.events[0], idHomeTeam, idAwayTeam)
+        verifyOrder {
+            matchDetailView.displayMatchDetail(matchResponseMock.events[0], idHomeTeam, idAwayTeam)
+        }
     }
 
     @Test
@@ -85,6 +90,61 @@ class MatchDetailPresenterTest {
             .getMatchDetail(matchId)
 
         matchDetailPresenter.getMatchDetail(matchId)
+        testScheduler.triggerActions()
+    }
+
+    @Test
+    fun `get the team detail information based on team home id and team away id should be success`(){
+        val idAwayTeam = "133614"
+        val idHomeTeam = "133602"
+        val teamHomeDetailMock = Team(
+            strTeam = "home mock url",
+            strTeamLogo = "home mock url juga"
+
+        )
+        val teamAwayDetailMock = Team(
+            strTeam = "away mock url",
+            strTeamLogo = "away mock url juga"
+
+        )
+        val teamHomeResponseMock = TeamResponse(teams = listOf(teamHomeDetailMock))
+        val teamAwayResponseMock = TeamResponse(teams = listOf(teamAwayDetailMock))
+
+        doReturn(Flowable.just(teamHomeResponseMock))
+            .`when`(testServiceProvider.getNetworkService())
+            .getTeamDetail(idHomeTeam)
+
+        doReturn(Flowable.just(teamAwayResponseMock))
+            .`when`(testServiceProvider.getNetworkService())
+            .getTeamDetail(idAwayTeam)
+
+        matchDetailPresenter.getTeamDetail(idHomeTeam, idAwayTeam)
+        testScheduler.triggerActions()
+
+        verifyOrder {
+            with(matchDetailView) {
+                displayHomeTeamDetail(teamHomeResponseMock.teams[0])
+                displayAwayTeamDetail(teamAwayResponseMock.teams[0])
+            }
+        }
+    }
+
+    @Test
+    fun `get the team detail information based on team home id and team away id should be failed`(){
+        val idAwayTeam = "133614"
+        val idHomeTeam = "133602"
+        val errorMessageMock = Throwable("error")
+        val errorResponseMock = Flowable.error<Throwable>(errorMessageMock)
+
+        doReturn(errorResponseMock)
+            .`when`(testServiceProvider.getNetworkService())
+            .getTeamDetail(idHomeTeam)
+
+        doReturn(errorResponseMock)
+            .`when`(testServiceProvider.getNetworkService())
+            .getTeamDetail(idAwayTeam)
+
+        matchDetailPresenter.getTeamDetail(idHomeTeam, idAwayTeam)
         testScheduler.triggerActions()
     }
 }
