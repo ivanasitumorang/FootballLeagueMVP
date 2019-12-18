@@ -2,6 +2,7 @@ package com.example.footballleaguemvp.ui.searchmatch
 
 import com.example.footballleaguemvp.network.NetworkServiceProvider
 import com.example.footballleaguemvp.network.SchedulerProvider
+import com.example.footballleaguemvp.network.TestIdlingResource
 import io.reactivex.disposables.Disposable
 
 
@@ -15,6 +16,9 @@ class SearchPresenter constructor(private val view: SearchContract.View, private
     private lateinit var mDisposable: Disposable
 
     override fun getSearchedData(query: String) {
+
+        TestIdlingResource.increment()
+
         view.showLoadingIndicator()
         mDisposable = networkServiceProvider.getNetworkService()
             .searchMatchByQuery(query)
@@ -22,6 +26,7 @@ class SearchPresenter constructor(private val view: SearchContract.View, private
             .subscribeOn(schedulerProvider.io())
             .subscribe(
                 { response ->
+                    TestIdlingResource.decrement()
                     val resultOnlySoccer = response.event.filter { match ->
                         match.strSport.equals("Soccer", true)
                     }

@@ -1,19 +1,18 @@
 package com.example.footballleaguemvp.ui.searchmatch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
+import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.adapter.MatchClickListener
 import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
-import com.example.footballleaguemvp.utils.ActivityNavigation
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar_search.*
-import kotlinx.android.synthetic.main.toolbar_search.btnToolbarBack
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
@@ -38,7 +37,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun setupSearchClickListener() {
-        with(searchView){
+        with(searchViewEdit){
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (!query.isNullOrEmpty()){
@@ -88,12 +87,12 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                             mActivityNavigation.navigateToMatchDetail(matchId, matchName)
                         }
                     })
-            rvMatchList.adapter = matchListAdapter
+            rvMatchListSearch.adapter = matchListAdapter
         }
     }
 
     override fun showNoData() {
-        layoutNoData.visibility = View.VISIBLE
-        rvMatchList.visibility = View.GONE
+        layoutNoDataSearch.visibility = View.VISIBLE
+        rvMatchListSearch.visibility = View.GONE
     }
 }

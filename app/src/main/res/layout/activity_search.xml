@@ -11,7 +11,7 @@
         layout="@layout/toolbar_search"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMatchList"
+        android:id="@+id/rvMatchListSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -23,7 +23,7 @@
         tools:listitem="@layout/item_match_list" />
 
     <include
-        android:id="@+id/layoutNoData"
+        android:id="@+id/layoutNoDataSearch"
         layout="@layout/partial_view_no_data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
