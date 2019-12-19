@@ -78,6 +78,8 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         if (matches.isNullOrEmpty()){
             showNoData()
         } else {
+            layoutNoDataSearch.visibility = View.GONE
+            rvMatchListSearch.visibility = View.VISIBLE
             val matchListAdapter =
                 MatchListAdapter(
                     matches,
