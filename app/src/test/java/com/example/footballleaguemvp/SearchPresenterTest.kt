@@ -21,7 +21,6 @@ import org.junit.Test
  * Created by ivanaazuka on 2019-12-17.
  * Android Engineer
  */
- 
 class SearchPresenterTest {
     private lateinit var searchPresenter: SearchPresenter
     private lateinit var testScheduler: TestScheduler

@@ -8,17 +8,18 @@ import androidx.test.espresso.idling.CountingIdlingResource
  * Created by ivanaazuka on 2019-12-18.
  * Android Engineer
  */
- 
-object TestIdlingResource {
-    private val _countingIdleResource = CountingIdlingResource("TEST")
-    val idlingResource: IdlingResource
-        get() = _countingIdleResource
+class TestIdlingResource {
+    companion object {
+        private val _countingIdleResource = CountingIdlingResource("TEST")
+        val idlingResource: IdlingResource
+            get() = _countingIdleResource
 
-    fun increment(){
-        _countingIdleResource.increment()
-    }
+        fun increment(){
+            _countingIdleResource.increment()
+        }
 
-    fun decrement(){
-        _countingIdleResource.decrement()
+        fun decrement(){
+            _countingIdleResource.decrement()
+        }
     }
 }

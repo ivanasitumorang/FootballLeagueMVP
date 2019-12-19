@@ -51,6 +51,8 @@ class SearchActivityTest {
         onView(isAssignableFrom(EditText::class.java))
             .perform(typeText("Arsenal"), pressImeActionButton())
 
+        Thread.sleep(3000)
+
         onView(allOf(isAssignableFrom(RecyclerView::class.java), withId(R.id.rvMatchListSearch)))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
 
@@ -70,6 +72,8 @@ class SearchActivityTest {
 
         onView(isAssignableFrom(EditText::class.java))
             .perform(typeText("Wkwkwk"), pressImeActionButton())
+
+        Thread.sleep(3000)
 
         onView(allOf(isAssignableFrom(RecyclerView::class.java), withId(R.id.rvMatchListSearch)))
             .check(matches(withEffectiveVisibility(Visibility.GONE)))
