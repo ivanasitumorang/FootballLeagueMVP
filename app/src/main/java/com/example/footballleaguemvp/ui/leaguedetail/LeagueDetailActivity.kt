@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
-import com.example.footballleaguemvp.ui.matchlist.MatchListPagerAdapter
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_league_detail.*
@@ -61,7 +60,11 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
     }
 
     override fun loadSelectedTab() {
-        val pagerAdapter = MatchListPagerAdapter(supportFragmentManager, leagueId)
+        val pagerAdapter =
+            LeagueDetailPagerAdapter(
+                supportFragmentManager,
+                leagueId
+            )
         pager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(pager)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{

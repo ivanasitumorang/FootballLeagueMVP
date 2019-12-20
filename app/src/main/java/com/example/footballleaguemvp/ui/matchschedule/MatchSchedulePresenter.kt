@@ -2,7 +2,7 @@ package com.example.footballleaguemvp.ui.matchschedule
 
 import com.example.footballleaguemvp.network.NetworkServiceProvider
 import com.example.footballleaguemvp.network.SchedulerProvider
-import com.example.footballleaguemvp.ui.matchlist.MatchListPagerAdapter
+import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailPagerAdapter
 import io.reactivex.disposables.Disposable
 
 
@@ -16,7 +16,7 @@ class MatchSchedulePresenter constructor(private val view: MatchScheduleContract
     private lateinit var mDisposable: Disposable
 
     override fun getMatchList(type: String, leagueId: String) {
-        if (type.equals(MatchListPagerAdapter.TAG_TYPE_PREV_MATCH, true)) {
+        if (type.equals(LeagueDetailPagerAdapter.TAG_TYPE_PREV_MATCH, true)) {
             view.showLoadingIndicator()
             mDisposable = networkServiceProvider.getNetworkService()
                 .getPrevMatchByLeagueId(leagueId)
