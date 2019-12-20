@@ -1,7 +1,7 @@
 package com.example.footballleaguemvp.ui.leaguelist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.LocalLeague
 import com.example.footballleaguemvp.utils.ActivityNavigation
@@ -50,8 +50,8 @@ class LeagueListActivity : AppCompatActivity(), LeagueListContract.View {
         mAdapter = LeagueListAdapter(
             leagues = leagueList,
             clickListener = object : LeagueClickListener {
-                override fun onClickLeagueItem(leagueId: String, leagueName: String) {
-                    mActivityNavigation.navigateToLeagueDetail(leagueId, leagueName)
+                override fun onClickLeagueItem(localLeague: LocalLeague) {
+                    mActivityNavigation.navigateToLeagueDetail(localLeague)
                 }
 
             })

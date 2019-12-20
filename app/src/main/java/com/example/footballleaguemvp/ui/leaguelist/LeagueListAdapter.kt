@@ -22,7 +22,7 @@ class LeagueListAdapter (var leagues: List<LocalLeague>, private val clickListen
             with(itemView){
                 imageView.setImageResource(item.logo)
                 tvLeagueName.text = item.name
-                itemLeague.setOnClickListener { clickListener.onClickLeagueItem(item.id, item.name) }
+                itemLeague.setOnClickListener { clickListener.onClickLeagueItem(item) }
             }
         }
     }
@@ -39,5 +39,5 @@ class LeagueListAdapter (var leagues: List<LocalLeague>, private val clickListen
 }
 
 interface LeagueClickListener {
-    fun onClickLeagueItem(leagueId: String, leagueName: String)
+    fun onClickLeagueItem(localLeague: LocalLeague)
 }

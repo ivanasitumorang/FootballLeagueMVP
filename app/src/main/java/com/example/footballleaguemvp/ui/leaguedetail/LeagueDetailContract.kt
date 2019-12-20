@@ -9,7 +9,7 @@ package com.example.footballleaguemvp.ui.leaguedetail
 class LeagueDetailContract {
     interface View {
         fun setUi()
-        fun setupToolbar(title: String)
+        fun setupToolbar()
         fun setupNavigation()
         fun setupClickListener()
         fun loadSelectedTab()

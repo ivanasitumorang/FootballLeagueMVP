@@ -1,10 +1,11 @@
 package com.example.footballleaguemvp.utils
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import com.example.footballleaguemvp.data.LocalLeague
 import com.example.footballleaguemvp.ui.favoritematchlist.FavoriteMatchListActivity
+import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import com.example.footballleaguemvp.ui.matchdetail.MatchDetailActivity
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
@@ -16,11 +17,10 @@ import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
  
 class ActivityNavigation constructor(private val activity: AppCompatActivity) {
 
-    fun navigateToLeagueDetail(leagueId: String, leagueName: String){
+    fun navigateToLeagueDetail(localLeague: LocalLeague){
         val leagueDetailPage = newIntent(activity, LeagueDetailActivity::class.java)
         leagueDetailPage.apply {
-            putExtra(LeagueDetailActivity.TAG_LEAGUE_ID, leagueId)
-            putExtra(LeagueDetailActivity.TAG_LEAGUE_NAME, leagueName)
+            putExtra(LeagueDetailActivity.TAG_LOCAL_LEAGUE, localLeague)
         }
         activity.startActivity(leagueDetailPage)
     }

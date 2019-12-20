@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
+import com.example.footballleaguemvp.data.LocalLeague
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_league_detail.*
@@ -14,33 +15,35 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
     companion object {
         const val TAG_LEAGUE_ID = "leagueId"
         const val TAG_LEAGUE_NAME = "leagueName"
+        const val TAG_LOCAL_LEAGUE = "localLeague"
     }
 
     private lateinit var mActivityNavigation: ActivityNavigation
-    private var leagueId = ""
-    private var leagueName = ""
+    private lateinit var localLeague: LocalLeague
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league_detail)
         val bundle = intent.extras
         if (bundle!=null){
-            leagueId = bundle.getString(TAG_LEAGUE_ID, "")
-            leagueName = bundle.getString(TAG_LEAGUE_NAME, "")
+            localLeague = bundle.getParcelable(TAG_LOCAL_LEAGUE)!!
         }
         setUi()
         setupClickListener()
     }
 
     override fun setUi() {
-        setupToolbar(leagueName)
+        setupToolbar()
         setupNavigation()
         loadSelectedTab()
+
+        ivleagueLogo.setImageResource(localLeague.logo)
+        tvLeagueName.text = localLeague.name
     }
 
-    override fun setupToolbar(title: String) {
+    override fun setupToolbar() {
         btnToolbarBack.visibility = View.VISIBLE
-        tvToolbarTitle.text = leagueName
+        tvToolbarTitle.visibility = View.GONE
         btnToolbarBack.setOnClickListener { onBackPressed() }
         searchView.visibility = View.VISIBLE
     }
@@ -63,7 +66,7 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
         val pagerAdapter =
             LeagueDetailPagerAdapter(
                 supportFragmentManager,
-                leagueId
+                localLeague.id
             )
         pager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(pager)
