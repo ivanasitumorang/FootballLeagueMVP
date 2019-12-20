@@ -1,14 +1,12 @@
 package com.example.footballleaguemvp.ui.leaguedetail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
-import com.example.footballleaguemvp.data.League
-import com.example.footballleaguemvp.network.AppNetworkServiceProvider
-import com.example.footballleaguemvp.network.AppSchedulerProvider
+import com.example.footballleaguemvp.ui.matchlist.MatchListPagerAdapter
 import com.example.footballleaguemvp.utils.ActivityNavigation
-import com.squareup.picasso.Picasso
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_league_detail.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
 
@@ -19,7 +17,6 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
         const val TAG_LEAGUE_NAME = "leagueName"
     }
 
-    private lateinit var mPresenter: LeagueDetailPresenter
     private lateinit var mActivityNavigation: ActivityNavigation
     private var leagueId = ""
     private var leagueName = ""
@@ -33,18 +30,13 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
             leagueName = bundle.getString(TAG_LEAGUE_NAME, "")
         }
         setUi()
-        initializeData()
-    }
-
-    override fun setPresenter() {
-        mPresenter = LeagueDetailPresenter(this, AppSchedulerProvider(), AppNetworkServiceProvider())
+        setupClickListener()
     }
 
     override fun setUi() {
         setupToolbar(leagueName)
-        setPresenter()
         setupNavigation()
-        setupClickListener()
+        loadSelectedTab()
     }
 
     override fun setupToolbar(title: String) {
@@ -58,46 +50,35 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
         mActivityNavigation = ActivityNavigation(this)
     }
 
-    override fun initializeData() {
-        mPresenter.setLeagueDetail(leagueId)
-    }
-
-    override fun populateData(league: League) {
-        Picasso.get()
-            .load(league.strLogo)
-            .placeholder(resources.getDrawable(R.drawable.loading_animation))
-            .into(ivLeagueBanner)
-        tvLeagueName.text = league.strLeague
-        tvLeagueDetail.text = league.strDescriptionEN
-    }
-
-    override fun showLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.VISIBLE
-    }
-
-    override fun hideLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.GONE
-    }
-
-    override fun enableButtonSeeMatch() {
-        btnSeeMatch.isEnabled = true
-    }
-
-    override fun disableButtonSeeMatch() {
-        btnSeeMatch.isEnabled = false
-    }
-
     override fun setupClickListener() {
         searchView.setOnClickListener {
             mActivityNavigation.navigateToSearchPage()
         }
 
-        btnSeeMatch.setOnClickListener {
-            mActivityNavigation.navigateToMatchList(leagueId, leagueName)
-        }
-
         btnFavoriteList.setOnClickListener {
             mActivityNavigation.navigateToFavoriteMatchList()
         }
+    }
+
+    override fun loadSelectedTab() {
+        val pagerAdapter = MatchListPagerAdapter(supportFragmentManager, leagueId)
+        pager.adapter = pagerAdapter
+        tabLayout.setupWithViewPager(pager)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                p0?.let {
+                    pager.currentItem = it.position
+                }
+            }
+
+        })
     }
 }

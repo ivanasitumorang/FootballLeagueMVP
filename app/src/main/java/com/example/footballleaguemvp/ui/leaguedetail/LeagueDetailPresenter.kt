@@ -15,23 +15,23 @@ class LeagueDetailPresenter constructor(private val view: LeagueDetailContract.V
 
     private lateinit var mDisposable: Disposable
 
-    override fun setLeagueDetail(idLeague: String) {
-        view.showLoadingIndicator()
-        view.disableButtonSeeMatch()
-        mDisposable = networkServiceProvider.getNetworkService()
-            .getLeagueDetail(idLeague)
-            .observeOn(schedulerProvider.ui())
-            .subscribeOn(schedulerProvider.io())
-            .subscribe(
-                {
-                    view.populateData(it.leagues[0])
-                    view.hideLoadingIndicator()
-                    view.enableButtonSeeMatch()
-                },
-                {
-                    view.hideLoadingIndicator()
-                }
-            )
-    }
+//    override fun setLeagueDetail(idLeague: String) {
+//        view.showLoadingIndicator()
+//        view.disableButtonSeeMatch()
+//        mDisposable = networkServiceProvider.getNetworkService()
+//            .getLeagueDetail(idLeague)
+//            .observeOn(schedulerProvider.ui())
+//            .subscribeOn(schedulerProvider.io())
+//            .subscribe(
+//                {
+//                    view.populateData(it.leagues[0])
+//                    view.hideLoadingIndicator()
+//                    view.enableButtonSeeMatch()
+//                },
+//                {
+//                    view.hideLoadingIndicator()
+//                }
+//            )
+//    }
 
 }

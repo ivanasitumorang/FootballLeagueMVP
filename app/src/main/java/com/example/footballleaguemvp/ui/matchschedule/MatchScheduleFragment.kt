@@ -2,16 +2,15 @@ package com.example.footballleaguemvp.ui.matchschedule
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
-import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
+import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.adapter.MatchClickListener
 import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
@@ -54,7 +53,7 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     }
 
     override fun setupNavigation() {
-        mActivityNavigation = ActivityNavigation(activity as MatchListActivity)
+        mActivityNavigation = ActivityNavigation(activity as LeagueDetailActivity)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
