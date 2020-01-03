@@ -116,7 +116,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tvDate">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -124,7 +123,6 @@
                 android:background="@color/colorGrayLight">
 
                 <ImageView
-                    android:id="@+id/ivHomeLogo"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="16dp"
@@ -170,7 +168,6 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:id="@+id/ivAwayLogo"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="16dp"

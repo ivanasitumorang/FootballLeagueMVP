@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.main.toolbar_activity.*
 class LeagueDetailActivity : AppCompatActivity(), LeagueDetailContract.View {
 
     companion object {
-        const val TAG_LEAGUE_ID = "leagueId"
-        const val TAG_LEAGUE_NAME = "leagueName"
         const val TAG_LOCAL_LEAGUE = "localLeague"
     }
 

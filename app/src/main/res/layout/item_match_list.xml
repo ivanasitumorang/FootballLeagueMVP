@@ -88,7 +88,6 @@
             tools:text="96" />
 
         <TextView
-            android:id="@+id/tvVersus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/versus_icon"
