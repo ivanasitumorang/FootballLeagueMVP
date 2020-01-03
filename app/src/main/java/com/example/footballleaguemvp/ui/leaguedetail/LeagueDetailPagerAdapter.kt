@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.footballleaguemvp.ui.LeagueClassementFragment
 import com.example.footballleaguemvp.ui.leagueoverview.LeagueOverviewFragment
 import com.example.footballleaguemvp.ui.matchschedule.MatchScheduleFragment
+import com.example.footballleaguemvp.ui.teamlist.TeamListFragment
 
 
 /**
@@ -24,7 +25,8 @@ class LeagueDetailPagerAdapter (fm: FragmentManager, private val leagueId: Strin
         "Overview",
         "Prev Match",
         "Next Match",
-        "Classement"
+        "Standing",
+        "Team"
     )
 
     override fun getItem(position: Int): Fragment {
@@ -32,11 +34,12 @@ class LeagueDetailPagerAdapter (fm: FragmentManager, private val leagueId: Strin
             0 -> LeagueOverviewFragment.newInstance(leagueId)
             1 -> MatchScheduleFragment.newInstance(TAG_TYPE_PREV_MATCH, leagueId)
             2 -> MatchScheduleFragment.newInstance(TAG_TYPE_NEXT_MATCH, leagueId)
-            else -> LeagueClassementFragment.newInstance(leagueId)
+            3 -> LeagueClassementFragment.newInstance(leagueId)
+            else -> TeamListFragment.newInstance(leagueId)
         }
     }
 
-    override fun getCount() = 4
+    override fun getCount() = 5
 
     override fun getPageTitle(position: Int): CharSequence? {
         return titles[position]
