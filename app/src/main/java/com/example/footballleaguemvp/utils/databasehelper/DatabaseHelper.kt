@@ -3,6 +3,7 @@ package com.example.footballleaguemvp.utils.databasehelper
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.data.Team
 import org.jetbrains.anko.db.*
 
 
@@ -11,7 +12,7 @@ import org.jetbrains.anko.db.*
  * Android Engineer
  */
  
-class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "FavoriteMatchDb", null, 2) {
+class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "LocalFavoriteDb", null, 3) {
     companion object {
         private var instance: DatabaseHelper? = null
 
@@ -43,10 +44,18 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "Favor
             Match.EVENT_AWAY_GOAL to TEXT,
             Match.EVENT_AWAY_REDCARD to TEXT,
             Match.EVENT_AWAY_YELLOWCARD to TEXT)
+
+        db?.createTable(Team.TABLE_FAVORITE_TEAM, true,
+            Team.TEAM_ID to TEXT + PRIMARY_KEY,
+            Team.TEAM_NAME to TEXT,
+            Team.TEAM_LOGO_URL to TEXT,
+            Team.TEAM_STADIUM to TEXT,
+            Team.TEAM_DESCRIPTION to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db?.dropTable(Match.TABLE_FAVORITE_MATCH, true)
+        db?.dropTable(Team.TABLE_FAVORITE_TEAM, true)
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.footballleaguemvp.ui.teamdetail
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
@@ -10,9 +11,15 @@ import com.example.footballleaguemvp.data.Team
 import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
 import com.example.footballleaguemvp.utils.ActivityNavigation
+import com.example.footballleaguemvp.utils.databasehelper.database
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_team_detail.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.toast
 
 class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
 
@@ -44,6 +51,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
     override fun setupUi() {
         setupPresenter()
         setupToolbar(teamName)
+        toggleFavoriteIcon()
     }
 
     override fun setupPresenter() {
@@ -96,14 +104,50 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
 
     override fun addTeamToFavorite(team: Team) {
         Toast.makeText(applicationContext, "Add $teamName", Toast.LENGTH_SHORT).show()
+        try {
+            database.use {
+                insert(Team.TABLE_FAVORITE_TEAM,
+                    Team.TEAM_ID to team.idTeam,
+                    Team.TEAM_NAME to team.strTeam,
+                    Team.TEAM_LOGO_URL to team.strTeamLogo,
+                    Team.TEAM_STADIUM to team.strStadium,
+                    Team.TEAM_DESCRIPTION to team.strDescriptionEN)
+            }
+            toast("${team.strTeam} has been added to favorite list").show()
+            toggleFavoriteIcon()
+        } catch (e: SQLiteConstraintException){
+            toast("Fail to add team to favorite list").show()
+        }
     }
 
     override fun removeTeamFromFavorite(team: Team) {
         Toast.makeText(applicationContext, "Remove $teamName", Toast.LENGTH_SHORT).show()
+        try {
+            database.use {
+                delete(Team.TABLE_FAVORITE_TEAM, "(${Team.TEAM_ID} = {idTeam})",
+                    "idTeam" to teamId)
+            }
+            toast("${team.strTeam} has been removed from favorite list").show()
+            toggleFavoriteIcon()
+        } catch (e: SQLiteConstraintException){
+            toast("Fail to remove team from favorite list").show()
+        }
     }
 
     override fun toggleFavoriteIcon() {
+        database.use {
+            val result = select(Team.TABLE_FAVORITE_TEAM)
+                .whereArgs("(${Team.TEAM_ID} = {idTeam})",
+                    "idTeam" to teamId)
+            val favorite = result.parseList(classParser<Team>())
+            isFavoriteTeam = favorite.isNotEmpty()
+        }
 
+        if (isFavoriteTeam){
+            btnFavorite.setImageResource(R.drawable.ic_favorite_full)
+        } else {
+            btnFavorite.setImageResource(R.drawable.ic_favorite_border)
+        }
     }
 
     override fun showLoadingIndicator() {
