@@ -9,6 +9,7 @@ import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import com.example.footballleaguemvp.ui.matchdetail.MatchDetailActivity
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
 import com.example.footballleaguemvp.ui.searchmatch.SearchActivity
+import com.example.footballleaguemvp.ui.teamdetail.TeamDetailActivity
 
 /**
  * Created by ivanaazuka on 2019-11-26.
@@ -46,6 +47,15 @@ class ActivityNavigation constructor(private val activity: AppCompatActivity) {
             putExtra(MatchDetailActivity.TAG_MATCH_NAME, matchName)
         }
         activity.startActivity(matchDetailPage)
+    }
+
+    fun navigateToTeamDetail(teamId: String, teamName: String){
+        val teamDetailPage = newIntent(activity, TeamDetailActivity::class.java)
+        teamDetailPage.apply {
+            putExtra(TeamDetailActivity.TAG_TEAM_ID, teamId)
+            putExtra(TeamDetailActivity.TAG_TEAM_NAME, teamName)
+        }
+        activity.startActivity(teamDetailPage)
     }
 
     fun navigateToSearchPage(){

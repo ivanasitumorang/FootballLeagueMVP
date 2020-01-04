@@ -11,7 +11,7 @@ data class Team(
     var strTeam: String,
     var strTeamLogo: String,
     var strStadium: String,
-    var strStadiumDescription: String)
+    var strDescriptionEN: String)
 
 data class TeamResponse(
     val teams: List<Team>

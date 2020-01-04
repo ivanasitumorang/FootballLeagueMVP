@@ -23,7 +23,7 @@ class TeamListAdapter (private val context: Context, private val teams: List<Tea
         fun bind (context: Context, team: Team, clickListener: TeamClickListener) {
             itemView.tvTeamName.text = team.strTeam
             Picasso.get().load(team.strTeamLogo).placeholder(context.resources.getDrawable(R.drawable.loading_animation)).into(itemView.ivTeamLogo)
-            itemView.llTeamItem.setOnClickListener { clickListener.onClickTeamItem(team.idTeam) }
+            itemView.llTeamItem.setOnClickListener { clickListener.onClickTeamItem(team.idTeam, team.strTeam) }
         }
     }
 
@@ -40,5 +40,5 @@ class TeamListAdapter (private val context: Context, private val teams: List<Tea
 }
 
 interface TeamClickListener {
-    fun onClickTeamItem(teamId: String)
+    fun onClickTeamItem(teamId: String, teamName: String)
 }
