@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  
 class MatchSchedulePresenter constructor(private val view: MatchScheduleContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider) : MatchScheduleContract.Logic {
 
-    private lateinit var mDisposable: Disposable
+    lateinit var mDisposable: Disposable
 
     override fun getMatchList(type: String, leagueId: String) {
         if (type.equals(LeagueDetailPagerAdapter.TAG_TYPE_PREV_MATCH, true)) {

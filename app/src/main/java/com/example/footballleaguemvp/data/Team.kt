@@ -7,8 +7,11 @@ package com.example.footballleaguemvp.data
  */
  
 data class Team(
-    val strTeam: String,
-    val strTeamLogo: String)
+    var idTeam: String,
+    var strTeam: String,
+    var strTeamLogo: String,
+    var strStadium: String,
+    var strStadiumDescription: String)
 
 data class TeamResponse(
     val teams: List<Team>

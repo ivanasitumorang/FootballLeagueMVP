@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
 class LeagueOverviewPresenter constructor(private val view: LeagueOverviewContract.View, private val schedulerProvider: SchedulerProvider, private val networkServiceProvider: NetworkServiceProvider)
     : LeagueOverviewContract.Logic {
 
-    private lateinit var disposable: Disposable
+    lateinit var disposable: Disposable
 
     override fun fetchLeagueDetail(idLeague: String) {
         view.showLoadingIndicator()

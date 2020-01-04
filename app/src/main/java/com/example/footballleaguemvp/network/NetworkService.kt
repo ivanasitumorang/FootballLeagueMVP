@@ -42,6 +42,10 @@ interface NetworkService {
     fun getMatchDetail(
         @Query("id") idEvent: String) : Flowable<MatchResponse>
 
+    @GET("api/v1/json/1/lookup_all_teams.php")
+    fun getTeamList(
+        @Query("id") idLeague: String) : Flowable<TeamResponse>
+
     @GET("api/v1/json/1/lookupteam.php")
     fun getTeamDetail(
         @Query("id") idTeam: String) : Flowable<TeamResponse>

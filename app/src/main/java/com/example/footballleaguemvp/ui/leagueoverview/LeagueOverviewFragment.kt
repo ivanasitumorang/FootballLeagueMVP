@@ -56,11 +56,11 @@ class LeagueOverviewFragment : Fragment(), LeagueOverviewContract.View {
     }
 
     override fun showLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.VISIBLE
+        ivOverviewLoadingIndicator.visibility = View.VISIBLE
     }
 
     override fun hideLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.GONE
+        ivOverviewLoadingIndicator.visibility = View.GONE
     }
 
     override fun setPresenter() {
@@ -68,7 +68,7 @@ class LeagueOverviewFragment : Fragment(), LeagueOverviewContract.View {
     }
 
     override fun populateLeagueDetail(league: League) {
-        Picasso.get().load(league.strBanner).placeholder(resources.getDrawable(R.drawable.loading_animation)).into(ivLeagueOverviewDetail)
+        Picasso.get().load(league.strBanner).placeholder(activity!!.applicationContext.resources.getDrawable(R.drawable.loading_animation)).into(ivLeagueOverviewDetail)
         tvLeagueOverviewDetail.text = league.strDescriptionEN
     }
 
@@ -76,5 +76,9 @@ class LeagueOverviewFragment : Fragment(), LeagueOverviewContract.View {
         leagueOverviewPresenter.fetchLeagueDetail(leagueId)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        leagueOverviewPresenter.disposable.dispose()
+    }
 
 }

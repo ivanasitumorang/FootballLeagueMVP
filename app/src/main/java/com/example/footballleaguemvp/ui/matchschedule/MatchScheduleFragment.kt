@@ -94,15 +94,20 @@ class MatchScheduleFragment : Fragment(), MatchScheduleContract.View {
     }
 
     override fun showLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.VISIBLE
+        ivMatchListLoadingIndicator?.visibility = View.VISIBLE
     }
 
     override fun hideLoadingIndicator() {
-        ivLoadingIndicator.visibility = View.GONE
+        ivMatchListLoadingIndicator?.visibility = View.GONE
     }
 
     override fun showNoData() {
         layoutNoData.visibility = View.VISIBLE
         rvMatchList.visibility = View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPresenter.mDisposable.dispose()
     }
 }
