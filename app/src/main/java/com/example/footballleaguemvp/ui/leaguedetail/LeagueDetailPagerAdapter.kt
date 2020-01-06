@@ -3,7 +3,7 @@ package com.example.footballleaguemvp.ui.leaguedetail
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.footballleaguemvp.ui.LeagueClassementFragment
+import com.example.footballleaguemvp.ui.leagueclassement.LeagueClassementFragment
 import com.example.footballleaguemvp.ui.leagueoverview.LeagueOverviewFragment
 import com.example.footballleaguemvp.ui.matchschedule.MatchScheduleFragment
 import com.example.footballleaguemvp.ui.teamlist.TeamListFragment

@@ -12,7 +12,17 @@
     <string name="goal_maker">Goal maker</string>
     <string name="format_stadium_team_detail">Stadium : %s</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorite_list">Favorite List</string>
+
+    <!-- Classement Header -->
+    <string name="classement_name">Name</string>
+    <string name="classement_mp">MP</string>
+    <string name="classement_w">W</string>
+    <string name="classement_d">D</string>
+    <string name="classement_l">L</string>
+    <string name="classement_gf">GF</string>
+    <string name="classement_ga">GA</string>
+    <string name="classement_gd">GD</string>
+    <string name="classement_pts">Pts</string>
 </resources>

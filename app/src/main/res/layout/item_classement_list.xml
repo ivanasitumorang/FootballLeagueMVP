@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="23"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvClassementTeamName"
+        android:layout_weight="7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="PSMS Medan"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/tvClassementMP"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementW"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementD"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementL"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementGF"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementGA"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementGD"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tvClassementPts"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1000"
+        android:textAlignment="center"/>
+</LinearLayout>

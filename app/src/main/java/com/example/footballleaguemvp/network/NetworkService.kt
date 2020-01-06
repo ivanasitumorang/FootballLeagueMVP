@@ -1,9 +1,6 @@
 package com.example.footballleaguemvp.network
 
-import com.example.footballleaguemvp.data.LeagueResponse
-import com.example.footballleaguemvp.data.MatchResponse
-import com.example.footballleaguemvp.data.SearchMatchResponse
-import com.example.footballleaguemvp.data.TeamResponse
+import com.example.footballleaguemvp.data.*
 import io.reactivex.Flowable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -53,6 +50,10 @@ interface NetworkService {
     @GET("api/v1/json/1/searchevents.php")
     fun searchMatchByQuery(
         @Query("e") query: String) : Flowable<SearchMatchResponse>
+
+    @GET("api/v1/json/1/lookuptable.php")
+    fun getClassementList(
+        @Query("l") idLeague: String) : Flowable<ClassementResponse>
 }
 
 class AppNetworkServiceProvider: NetworkServiceProvider {

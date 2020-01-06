@@ -1,28 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.LeagueClassementFragment">
+    tools:context=".ui.leagueclassement.LeagueClassementFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/llClassementHeader"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rvClassement"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
         <TextView
-            android:id="@+id/tvLeagueOverviewDetail"
-            android:layout_width="match_parent"
+            android:layout_weight="7"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            tools:text="Detail league"
-            android:text="CLASSEMENT"/>
+            android:text="@string/classement_name"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_mp"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_w"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_d"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvClassementL"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_l"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_gf"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_ga"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_gd"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/classement_pts"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
-</ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvClassement"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llClassementHeader"
+        tools:listitem="@layout/item_classement_list" />
+
+    <include
+        android:id="@+id/layoutNoData"
+        layout="@layout/partial_view_no_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivClassementLoadingIndicator"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/content_description"
+        android:src="@drawable/loading_animation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
