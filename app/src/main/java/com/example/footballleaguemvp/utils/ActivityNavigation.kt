@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.data.LocalLeague
-import com.example.footballleaguemvp.ui.favoritematchlist.FavoriteMatchListActivity
+import com.example.footballleaguemvp.ui.favoritelist.FavoriteListActivity
 import com.example.footballleaguemvp.ui.leaguedetail.LeagueDetailActivity
 import com.example.footballleaguemvp.ui.matchdetail.MatchDetailActivity
 import com.example.footballleaguemvp.ui.matchlist.MatchListActivity
@@ -36,8 +36,8 @@ class ActivityNavigation constructor(private val activity: AppCompatActivity) {
     }
 
     fun navigateToFavoriteMatchList(){
-        val favoriteMatchListPage = newIntent(activity, FavoriteMatchListActivity::class.java)
-        activity.startActivity(favoriteMatchListPage)
+        val favoriteListPage = newIntent(activity, FavoriteListActivity::class.java)
+        activity.startActivity(favoriteListPage)
     }
 
     fun navigateToMatchDetail(matchId: String, matchName: String){
