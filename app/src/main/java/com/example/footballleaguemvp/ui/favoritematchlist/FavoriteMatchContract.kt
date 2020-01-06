@@ -8,12 +8,10 @@ import com.example.footballleaguemvp.data.Match
  * Android Engineer
  */
  
-class FavoriteMatchListContract {
+class FavoriteMatchContract {
     interface View {
         fun setupUi()
-        fun setupToolbar()
         fun setupNavigation()
-        fun setupClickListener()
         fun initializeData()
         fun populateData(matches: List<Match>)
     }

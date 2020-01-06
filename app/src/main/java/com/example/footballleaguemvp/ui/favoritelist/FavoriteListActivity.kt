@@ -28,7 +28,7 @@ class FavoriteListActivity : AppCompatActivity(), FavoriteListContract.View {
 
     override fun setupToolbar() {
         btnToolbarBack.visibility = View.VISIBLE
-        tvToolbarTitle.text = "Favorite List"
+        tvToolbarTitle.text = getString(R.string.favorite_list)
         btnFavoriteList.visibility = View.INVISIBLE
     }
 
