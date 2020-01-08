@@ -12,7 +12,7 @@ import org.jetbrains.anko.db.*
  * Android Engineer
  */
  
-class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "LocalFavoriteDb", null, 3) {
+class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "LocalFavoriteDb", null, 4) {
     companion object {
         private var instance: DatabaseHelper? = null
 
@@ -50,7 +50,8 @@ class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "Local
             Team.TEAM_NAME to TEXT,
             Team.TEAM_LOGO_URL to TEXT,
             Team.TEAM_STADIUM to TEXT,
-            Team.TEAM_DESCRIPTION to TEXT)
+            Team.TEAM_DESCRIPTION to TEXT,
+            Team.TEAM_SPORT to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

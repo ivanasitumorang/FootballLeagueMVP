@@ -25,4 +25,6 @@
     <string name="classement_ga">GA</string>
     <string name="classement_gd">GD</string>
     <string name="classement_pts">Pts</string>
+    <string name="radio_btn_match">Match</string>
+    <string name="radio_btn_team">Team</string>
 </resources>

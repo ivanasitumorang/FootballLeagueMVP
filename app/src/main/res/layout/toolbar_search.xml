@@ -4,29 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/toolbar_background"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/btnToolbarBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/transparent"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:src="@drawable/back_arrow"
-        android:visibility="visible"
-        android:contentDescription="@string/back_button" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewEdit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        app:iconifiedByDefault="false"
-        android:clipToPadding="false"
-        app:queryHint="@string/search_match"
-        app:closeIcon="@drawable/ic_close"
-        app:searchIcon="@drawable/ic_search_white"/>
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnToolbarBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:src="@drawable/back_arrow"
+            android:visibility="visible"
+            android:contentDescription="@string/back_button" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchViewEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:iconifiedByDefault="false"
+            android:clipToPadding="false"
+            app:queryHint="@string/search_match"
+            app:closeIcon="@drawable/ic_close"
+            app:searchIcon="@drawable/ic_search_white"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rgSearchType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
+
+        <RadioButton
+            android:id="@+id/rbSearchMatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_btn_match"
+            android:layout_weight="1"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rbSearchTeam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_btn_team"
+            android:layout_weight="1"/>
+
+    </RadioGroup>
 
 </LinearLayout>

@@ -11,7 +11,8 @@ data class Team(
     var strTeam: String,
     var strTeamLogo: String? = null,
     var strStadium: String,
-    var strDescriptionEN: String) {
+    var strDescriptionEN: String,
+    var strSport: String) {
 
     companion object {
         const val TABLE_FAVORITE_TEAM = "TABLE_FAVORITE_TEAM"
@@ -20,6 +21,7 @@ data class Team(
         const val TEAM_LOGO_URL = "TEAM_LOGO_URL"
         const val TEAM_STADIUM = "TEAM_STADIUM"
         const val TEAM_DESCRIPTION = "TEAM_DESCRIPTION"
+        const val TEAM_SPORT = "TEAM_SPORT"
     }
 }
 

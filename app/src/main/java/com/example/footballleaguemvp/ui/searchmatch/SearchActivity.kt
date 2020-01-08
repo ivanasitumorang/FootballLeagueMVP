@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
+import com.example.footballleaguemvp.data.Team
 import com.example.footballleaguemvp.network.AppNetworkServiceProvider
 import com.example.footballleaguemvp.network.AppSchedulerProvider
+import com.example.footballleaguemvp.ui.teamlist.TeamClickListener
+import com.example.footballleaguemvp.ui.teamlist.TeamListAdapter
 import com.example.footballleaguemvp.utils.ActivityNavigation
 import com.example.footballleaguemvp.utils.adapter.MatchClickListener
 import com.example.footballleaguemvp.utils.adapter.MatchListAdapter
@@ -37,11 +40,13 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun setupSearchClickListener() {
+        var queryToSearch = ""
         with(searchViewEdit){
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (!query.isNullOrEmpty()){
-                        mPresenter.getSearchedData(query)
+                        queryToSearch = query
+                        searchData(query)
                     }
 
                     return true
@@ -49,12 +54,17 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if (!newText.isNullOrEmpty()){
-                        mPresenter.getSearchedData(newText)
+                        queryToSearch = newText
+                        searchData(newText)
                     }
                     return true
                 }
 
             })
+        }
+
+        rgSearchType.setOnCheckedChangeListener { _, _ ->
+            searchData(queryToSearch)
         }
     }
 
@@ -74,27 +84,50 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         mActivityNavigation = ActivityNavigation(this)
     }
 
-    override fun populateData(matches: List<Match>) {
-        if (matches.isNullOrEmpty()){
+    @Suppress("UNCHECKED_CAST")
+    override fun populateData(data: List<Any>) {
+        if (data.isNullOrEmpty()){
             showNoData()
         } else {
             layoutNoDataSearch.visibility = View.GONE
             rvMatchListSearch.visibility = View.VISIBLE
-            val matchListAdapter =
-                MatchListAdapter(
-                    matches,
-                    object :
-                        MatchClickListener {
-                        override fun onClickLeagueItem(matchId: String, matchName: String) {
-                            mActivityNavigation.navigateToMatchDetail(matchId, matchName)
-                        }
-                    })
-            rvMatchListSearch.adapter = matchListAdapter
+            if (data[0] is Match){
+                val matchListAdapter =
+                    MatchListAdapter(
+                        data as List<Match>,
+                        object :
+                            MatchClickListener {
+                            override fun onClickLeagueItem(matchId: String, matchName: String) {
+                                mActivityNavigation.navigateToMatchDetail(matchId, matchName)
+                            }
+                        })
+                rvMatchListSearch.adapter = matchListAdapter
+            } else {
+                val teamListAdapter =
+                    TeamListAdapter(
+                        applicationContext,
+                        data as List<Team>,
+                        object :
+                            TeamClickListener {
+                            override fun onClickTeamItem(teamId: String, teamName: String) {
+                                mActivityNavigation.navigateToTeamDetail(teamId, teamName)
+                            }
+                        })
+                rvMatchListSearch.adapter = teamListAdapter
+            }
         }
     }
 
     override fun showNoData() {
         layoutNoDataSearch.visibility = View.VISIBLE
         rvMatchListSearch.visibility = View.GONE
+    }
+
+    fun searchData(query: String){
+        if (rgSearchType.checkedRadioButtonId == rbSearchMatch.id){
+            mPresenter.getSearchedMatch(query)
+        } else {
+            mPresenter.getSearchedTeam(query)
+        }
     }
 }

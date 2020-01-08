@@ -1,7 +1,5 @@
 package com.example.footballleaguemvp.ui.searchmatch
 
-import com.example.footballleaguemvp.data.Match
-
 
 /**
  * Created by ivanaazuka on 2019-11-27.
@@ -14,7 +12,7 @@ class SearchContract {
         fun setupToolbar()
         fun setPresenter()
         fun setupNavigation()
-        fun populateData(matches: List<Match>)
+        fun populateData(data: List<Any>)
         fun setupSearchClickListener()
         fun showLoadingIndicator()
         fun hideLoadingIndicator()
@@ -22,7 +20,8 @@ class SearchContract {
     }
 
     interface Logic {
-        fun getSearchedData(query: String)
+        fun getSearchedMatch(query: String)
+        fun getSearchedTeam(query: String)
     }
 
 }

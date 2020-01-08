@@ -51,6 +51,10 @@ interface NetworkService {
     fun searchMatchByQuery(
         @Query("e") query: String) : Flowable<SearchMatchResponse>
 
+    @GET("api/v1/json/1/searchteams.php")
+    fun searchTeamsByQuery(
+        @Query("t") query: String) : Flowable<TeamResponse>
+
     @GET("api/v1/json/1/lookuptable.php")
     fun getClassementList(
         @Query("l") idLeague: String) : Flowable<ClassementResponse>

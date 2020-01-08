@@ -14,8 +14,7 @@ class SearchPresenter constructor(private val view: SearchContract.View, private
 
     private lateinit var mDisposable: Disposable
 
-    override fun getSearchedData(query: String) {
-
+    override fun getSearchedMatch(query: String) {
         view.showLoadingIndicator()
         mDisposable = networkServiceProvider.getNetworkService()
             .searchMatchByQuery(query)
@@ -25,6 +24,27 @@ class SearchPresenter constructor(private val view: SearchContract.View, private
                 { response ->
                     val resultOnlySoccer = response.event.filter { match ->
                         match.strSport.equals("Soccer", true)
+                    }
+                    view.populateData(resultOnlySoccer)
+                    view.hideLoadingIndicator()
+                },
+                {
+                    view.hideLoadingIndicator()
+                    view.showNoData()
+                }
+            )
+    }
+
+    override fun getSearchedTeam(query: String) {
+        view.showLoadingIndicator()
+        mDisposable = networkServiceProvider.getNetworkService()
+            .searchTeamsByQuery(query)
+            .observeOn(schedulerProvider.ui())
+            .subscribeOn(schedulerProvider.io())
+            .subscribe(
+                { response ->
+                    val resultOnlySoccer = response.teams.filter { team ->
+                        team.strSport.equals("Soccer", true)
                     }
                     view.populateData(resultOnlySoccer)
                     view.hideLoadingIndicator()
