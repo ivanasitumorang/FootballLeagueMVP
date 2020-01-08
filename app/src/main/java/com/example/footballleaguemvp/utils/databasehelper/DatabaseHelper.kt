@@ -12,7 +12,7 @@ import org.jetbrains.anko.db.*
  * Android Engineer
  */
  
-class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "LocalFavoriteDb", null, 4) {
+class DatabaseHelper(context: Context) : ManagedSQLiteOpenHelper(context, "LocalFavoriteDb", null, 5) {
     companion object {
         private var instance: DatabaseHelper? = null
 

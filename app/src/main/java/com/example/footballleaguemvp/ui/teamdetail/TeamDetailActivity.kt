@@ -111,7 +111,8 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
                     Team.TEAM_NAME to team.strTeam,
                     Team.TEAM_LOGO_URL to team.strTeamLogo,
                     Team.TEAM_STADIUM to team.strStadium,
-                    Team.TEAM_DESCRIPTION to team.strDescriptionEN)
+                    Team.TEAM_DESCRIPTION to team.strDescriptionEN,
+                    Team.TEAM_SPORT to team.strSport)
             }
             toast("${team.strTeam} has been added to favorite list").show()
             toggleFavoriteIcon()
