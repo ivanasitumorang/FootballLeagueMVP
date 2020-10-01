@@ -1,8 +1,8 @@
 package com.example.footballleaguemvp.ui.favoritematchlist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.footballleaguemvp.R
 import com.example.footballleaguemvp.data.Match
 import com.example.footballleaguemvp.utils.ActivityNavigation
@@ -52,8 +52,13 @@ class FavoriteMatchListActivity : AppCompatActivity(), FavoriteMatchListContract
 
     override fun initializeData() {
         database.use {
-            val result = select(Match.TABLE_FAVORITE_MATCH).parseList(classParser<Match>())
-            populateData(result)
+            var result: List<Match> = listOf()
+            try {
+                result = select(Match.TABLE_FAVORITE_MATCH).parseList(classParser())
+            } catch (e: Exception) {
+            } finally {
+                populateData(result)
+            }
         }
     }
 
