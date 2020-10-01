@@ -180,17 +180,23 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
     override fun toggleFavoriteIcon() {
         database.use {
-            val result = select(Match.TABLE_FAVORITE_MATCH)
-                .whereArgs("(${Match.EVENT_ID} = {idEvent})",
-                    "idEvent" to matchId)
-            val favorite = result.parseList(classParser<Match>())
-            isFavoriteMatch = favorite.isNotEmpty()
+            try {
+                val result = select(Match.TABLE_FAVORITE_MATCH)
+                    .whereArgs(
+                        "(${Match.EVENT_ID} = {idEvent})",
+                        "idEvent" to matchId
+                    )
+                val favorite = result.parseList(classParser<Match>())
+                isFavoriteMatch = favorite.isNotEmpty()
+            } catch (e: Exception) {
+            }
         }
 
-        if (isFavoriteMatch){
+        if (isFavoriteMatch) {
             btnFavorite.setImageResource(R.drawable.ic_favorite_full)
         } else {
             btnFavorite.setImageResource(R.drawable.ic_favorite_border)
         }
+        isFavoriteMatch = !isFavoriteMatch
     }
 }
